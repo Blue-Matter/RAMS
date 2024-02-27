@@ -53,9 +53,9 @@ mod_home_ui <- function(id){
   ns <- NS(id)
 
   tagList(
-    box(width=12, status='primary',
+    shinydashboard::box(width=12, status='primary',
         title=h3('Welcome to the RAMS App'),
-        box(solidHeader = TRUE, status='primary', width=12,
+        shinydashboard::box(solidHeader = TRUE, status='primary', width=12,
             title='RAMS Database',
             column(9,
                    h4('Load an existing RAMS Process by clicking the',  icon('eye'), 'button',

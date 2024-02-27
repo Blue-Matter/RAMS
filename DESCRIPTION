@@ -11,10 +11,18 @@ Imports:
     DT,
     flexdashboard,
     golem (>= 0.4.1),
+    knitr,
+    purrr,
     shiny (>= 1.8.0),
+    shinyauthr,
     shinydashboard,
     shinydashboardPlus,
-    shinyhelper
+    shinyhelper,
+    shinyjs,
+    shinyWidgets,
+    sodium,
+    tibble,
+    waiter
 Suggests: 
     spelling,
     testthat (>= 3.0.0)

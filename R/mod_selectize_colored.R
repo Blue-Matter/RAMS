@@ -18,13 +18,13 @@ mod_selectize_colored_ui <- function(id){
 #' selectize_colored Server Functions
 #'
 #' @noRd
-mod_selectize_colored_server <- function(id, label, choices_list){
+mod_selectize_colored_server <- function(id, parent_id, label, choices_list){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
 
     bg <- reactive({
-      select_color_css(id, input[[id]], selectize_colors)
+      select_color_css(parent_id, id, input[[id]], selectize_colors)
     })
 
     observeEvent(input[[id]], {
@@ -48,7 +48,7 @@ mod_selectize_colored_server <- function(id, label, choices_list){
           type = "markdown",
           content = id,
           size='l'),
-          class=paste(id,  'colored_selectInput')
+          class=paste(parent_id, id,  'colored_selectInput')
         ),
         uiOutput(ns('background_change'))
       )

@@ -1,9 +1,9 @@
 selectize_colors <- c('#dbdbdb', '#00af50', '#ffcc00', '#ff742e', '#ff0000')
 
-select_color_css <- function(id, input_val, selectize_colors, class='selectize-input', style=NULL) {
+select_color_css <- function(parent_id, id, input_val, selectize_colors, class='selectize-input', style=NULL) {
   input_val <- as.numeric(input_val)
   color <- selectize_colors[input_val]
-  paste0('.', id, ' .', class, ' { background-color: ', color, ' !important;', style, '}')
+  paste0('.', parent_id, '.', id, ' .', class, ' { background-color: ', color, ' !important;', style, '}')
 }
 
 score_categories <- list('Low', 'Moderate', 'Medium', 'High', 'Very High')

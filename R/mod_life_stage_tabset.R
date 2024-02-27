@@ -42,7 +42,7 @@ mod_life_stage_tabset_server <- function(id, life_stage){
     ns <- session$ns
     output$life_stage_tabset <- renderUI({
       tagList(
-        box(width=12, title=h3(paste('Life Stage: ', life_stage)),
+        shinydashboard::box(width=12, title=h3(paste('Life Stage: ', life_stage)),
             h4(paste('Ecosystem Unit: ', Ecosystem.Unit)),
 
             do.call(tabsetPanel, ll)
@@ -100,12 +100,12 @@ mod_limiting_factor_server <- function(id) {
     ns <- session$ns
     # LF_df <- Limiting_Factors %>% dplyr::filter(LF_ID ==LFid)
 
-    spatial_scale <- mod_selectize_colored_server("spatial_scale", 'Spatial Risk', list('Low'=1,
+    spatial_scale <- mod_selectize_colored_server("spatial_scale", id, 'Spatial Risk', list('Low'=1,
                                                                                         'Moderate'=2,
                                                                                         'Medium'=3,
                                                                                         'High'=4,
                                                                                         'Very High'=5))
-    temporal_scale <- mod_selectize_colored_server("temporal_scale", 'Temporal Risk', list('Low'=1,
+    temporal_scale <- mod_selectize_colored_server("temporal_scale", id, 'Temporal Risk', list('Low'=1,
                                                                                            'Moderate'=2,
                                                                                            'Medium'=3,
                                                                                            'High'=4,
@@ -117,7 +117,7 @@ mod_limiting_factor_server <- function(id) {
                            exposure_score,
                            selectize_colors)
 
-    impact <- mod_selectize_colored_server("impact", 'Impact', list('Minor'=1,
+    impact <- mod_selectize_colored_server("impact", id, 'Impact', list('Minor'=1,
                                                                     'Moderate'=2,
                                                                     'Major'=3,
                                                                     'Sever'=4,
@@ -163,7 +163,7 @@ mod_limiting_factor_server <- function(id) {
     LF_DF <- Limiting_Factors %>% dplyr::filter(LF_ID==lf_id)
     output$limiting_factor <- renderUI({
       tagList(
-            box(width=12,
+        shinydashboard::box(width=12,
                 shinydashboardPlus::box(title='Biological Risk Scores', width=9, id='brs',
                                         solidHeader = TRUE,
                                         status = "primary",

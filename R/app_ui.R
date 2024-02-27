@@ -1,9 +1,5 @@
 
 
-library(shinydashboard)
-library(shinydashboardPlus)
-
-
 # How many days should sessions last?
 cookie_expiry <- 7
 
@@ -22,8 +18,7 @@ user_base <- tibble::tibble(
 #' @param request Internal parameter for `{shiny}`.
 #'     DO NOT REMOVE.
 #' @import shiny
-#' @import shinydashboard
-#' @import shinydashboardPlus
+#' @importFrom dplyr %>%
 #' @noRd
 app_ui <- function(request) {
   tagList(
@@ -40,9 +35,9 @@ app_ui <- function(request) {
                                           )),
       controlbar=shinydashboardPlus::dashboardControlbar(id='controlbar',
                                                          width=350,
-                                                         controlbarMenu(
+                                                         shinydashboardPlus::controlbarMenu(
                                                            id='menu',
-                                                           controlbarItem(
+                                                           shinydashboardPlus::controlbarItem(
                                                              title='',
                                                              uiOutput('logininfo')
                                                              )
@@ -52,28 +47,14 @@ app_ui <- function(request) {
       shinydashboardPlus::dashboardSidebar(collapsed = TRUE,
                                            mod_sidebar_main_ui("sidebar_main_1")
                                            ),
-        # shinydashboard::sidebarMenu(
-        #   shinydashboard::menuItem('Home', tabName='home', icon=icon('home')),
-        #
-        #   # menuItem('Summary', tabName = 'summary', icon=icon('list')),
-        #   menuItem('Egg / Alevin', tabName = 'egg_alevin', icon=icon('egg', class='fa-sm')),
-        #   menuItem('Fry / Parr', tabName='fry_parr', icon=icon('fish', class='fa-xs')),
-        #   menuItem('Smolt', tabName='smolt', icon=icon('fish', class='fa-sm')),
-        #   menuItem('Juvenile', tabName='juvenile', icon=icon('fish')),
-        #   menuItem('Immature', tabName='immature', icon=icon('fish', class='fa-lg')),
-        #   menuItem('Adult', startExpanded = TRUE, icon=icon('fish', class='fa-xl'),
-        #            menuSubItem('Return Migration', tabName='return_migration'),
-        #            menuSubItem('Terminal Migration', tabName='terminal_migration'),
-        #            menuSubItem('Spawning', tabName='spawning')
-        #   )
-        # )
-      dashboardBody(
+
+      shinydashboard::dashboardBody(
         waiter::waiterShowOnLoad(), # will show on load
 
-        tabItems(
-          tabItem(tabName = "home", mod_home_ui('home')),
-          tabItem(tabName = "egg_alevin", mod_life_stage_tabset_ui('egg_alevin')),
-          tabItem(tabName = "fry_parr", mod_life_stage_tabset_ui('fry_parr'))
+        shinydashboard::tabItems(
+          shinydashboard::tabItem(tabName = "home", mod_home_ui('home')),
+          shinydashboard::tabItem(tabName = "egg_alevin", mod_life_stage_tabset_ui('egg_alevin')),
+          shinydashboard::tabItem(tabName = "fry_parr", mod_life_stage_tabset_ui('fry_parr'))
       )
       )
     )
