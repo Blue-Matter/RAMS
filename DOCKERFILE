@@ -26,4 +26,4 @@ RUN R -e "remotes::install_github(c('blue-matter/RAMS'), 'shiny_live', dependenc
 EXPOSE 3838
 
 # launch the Shiny app when the container is started
-CMD ["R", "-e", "RAMS::run_app(host='0.0.0.0'"]
+CMD ["R", "-e", "RAMS::run_app(host='0.0.0.0')"]
