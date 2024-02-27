@@ -20,12 +20,18 @@ attachment::att_amend_desc()
 
 ## Add modules ----
 ## Create a module infrastructure in R/
-golem::add_module(name = "name_of_module1", with_test = TRUE) # Name of the module
-golem::add_module(name = "name_of_module2", with_test = TRUE) # Name of the module
+golem::add_module(name = "home") # Name of the module
+golem::add_module(name = "sidebar_main", with_test = TRUE) # Name of the module
+golem::add_module(name = "selectize_colored", with_test = TRUE) # Name of the module
+golem::add_module(name = "score_gauge")
+golem::add_module(name = "selectize_trend")
+golem::add_module(name = "life_stage_tabset")
+golem::add_module(name = "sidebar")
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
-golem::add_fct("helpers", with_test = TRUE)
+golem::add_fct("new_RAMS", with_test = TRUE)
+golem::add_fct('calc_likelihood',with_test = TRUE)
 golem::add_utils("helpers", with_test = TRUE)
 
 ## External resources

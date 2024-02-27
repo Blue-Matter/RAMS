@@ -1,0 +1,19 @@
+.colored_selectInput .selectize-control .option:nth-child(1) {
+  background-color: #dbdbdb;
+}
+
+.colored_selectInput .selectize-control .option:nth-child(2) {
+  background-color: #00af50;
+}
+
+.colored_selectInput .selectize-control .option:nth-child(3) {
+  background-color: #ffcc00;
+}
+
+.colored_selectInput .selectize-control .option:nth-child(4) {
+  background-color: #ff742e;
+}
+
+.colored_selectInput .selectize-control .option:nth-child(5) {
+  background-color: #ff0000;
+}
