@@ -22,7 +22,6 @@ mod_selectize_colored_server <- function(id, parent_id, label, choices_list){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
-
     bg <- reactive({
       select_color_css(parent_id, id, input[[id]], selectize_colors)
     })

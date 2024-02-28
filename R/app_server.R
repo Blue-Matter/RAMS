@@ -17,6 +17,8 @@ score_categories <- list('Low', 'Moderate', 'Medium', 'High', 'Very High')
 #' @noRd
 app_server <- function(input, output, session) {
 
+  waitress <- waiter::Waitress$new(theme = "overlay-percent") # call the waitress
+
   objects <- reactiveValues(info=NULL,
                             user_auth=FALSE,
                             loaded=TRUE)
@@ -65,25 +67,32 @@ app_server <- function(input, output, session) {
 
 
 
-
-
-
+  waitress$set(5)
 
   shinyhelper::observe_helpers(help_dir=file.path(app_sys(), 'app/helpfiles'))
 
   mod_sidebar_main_server("sidebar_main_1", objects)
+  waitress$inc(10)
   mod_home_server('home', objects)
-
-
+  waitress$inc(10)
   mod_life_stage_tabset_server('egg_alevin', 'Egg / Alevin')
+  waitress$inc(10)
   mod_life_stage_tabset_server('fry_parr', 'Fry / Parr')
+  waitress$inc(10)
   mod_life_stage_tabset_server('smolt', 'Smolt')
+  waitress$inc(10)
   mod_life_stage_tabset_server('juvenile', 'Juvenile')
+  waitress$inc(10)
   mod_life_stage_tabset_server('immature', 'Immature')
+  waitress$inc(10)
   mod_life_stage_tabset_server('return_migration', 'Return Migration')
+  waitress$inc(10)
   mod_life_stage_tabset_server('terminal_migration', 'Terminal Migration')
+  waitress$inc(10)
   mod_life_stage_tabset_server('spawning', 'Spawning')
-  waiter::waiter_hide()
+
+  waitress$close()
+  # waiter::waiter_hide()
 }
 
 

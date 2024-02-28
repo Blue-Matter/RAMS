@@ -49,7 +49,7 @@ app_ui <- function(request) {
                                            ),
 
       shinydashboard::dashboardBody(
-        waiter::waiterShowOnLoad(), # will show on load
+        # waiter::waiterShowOnLoad(), # will show on load
 
         shinydashboard::tabItems(
           shinydashboard::tabItem(tabName = "home", mod_home_ui('home')),
@@ -99,7 +99,7 @@ golem_add_external_resources <- function() {
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert()
     shinyjs::useShinyjs(),
-    waiter::use_waiter()
+    waiter::use_waitress()
 
 
   )
