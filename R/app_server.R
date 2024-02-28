@@ -37,7 +37,7 @@ app_server <- function(input, output, session) {
 
   observeEvent(credentials(), {
     if (credentials()$user_auth) {
-      updateControlbar("controlbar")
+      shinydashboardPlus::updateControlbar("controlbar")
       objects$info <- credentials()$info
       objects$user_auth <- TRUE
     } else {
