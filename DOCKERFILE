@@ -11,6 +11,7 @@ sudo \
 build-essential \
 git \
 libicu-dev \
+libsodium-dev \
 pandoc \
 pandoc-citeproc \
 zlib1g-dev
