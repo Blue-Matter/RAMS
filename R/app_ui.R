@@ -44,7 +44,7 @@ app_ui <- function(request) {
                                                            )
                                                          ),
 
-      shinydashboardPlus::dashboardSidebar(collapsed = TRUE,
+      shinydashboardPlus::dashboardSidebar(collapsed = FALSE,
                                            mod_sidebar_main_ui("sidebar_main_1")
                                            ),
 
