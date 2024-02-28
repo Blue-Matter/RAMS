@@ -109,7 +109,7 @@ mod_limiting_factor_server <- function(id) {
     impact <- mod_selectize_colored_server("impact", id, 'Impact', list('Minor'=1,
                                                                     'Moderate'=2,
                                                                     'Major'=3,
-                                                                    'Sever'=4,
+                                                                    'Severe'=4,
                                                                     'Critical'=5))
     risk_score <- reactive(calc_likelihood(exposure_score(), impact()))
 
