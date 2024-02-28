@@ -54,8 +54,18 @@ app_ui <- function(request) {
         shinydashboard::tabItems(
           shinydashboard::tabItem(tabName = "home", mod_home_ui('home')),
           shinydashboard::tabItem(tabName = "egg_alevin", mod_life_stage_tabset_ui('egg_alevin')),
-          shinydashboard::tabItem(tabName = "fry_parr", mod_life_stage_tabset_ui('fry_parr'))
+          shinydashboard::tabItem(tabName = "fry_parr", mod_life_stage_tabset_ui('fry_parr')),
+          shinydashboard::tabItem(tabName = "smolt", mod_life_stage_tabset_ui('smolt')),
+          shinydashboard::tabItem(tabName = "juvenile", mod_life_stage_tabset_ui('juvenile')),
+          shinydashboard::tabItem(tabName = "immature", mod_life_stage_tabset_ui('immature')),
+          shinydashboard::tabItem(tabName = "return_migration", mod_life_stage_tabset_ui('return_migration')),
+          shinydashboard::tabItem(tabName = "terminal_migration", mod_life_stage_tabset_ui('terminal_migration')),
+          shinydashboard::tabItem(tabName = "spawning", mod_life_stage_tabset_ui('spawning'))
       )
+      ),
+      footer = shinydashboardPlus::dashboardFooter(
+        left = p("Developed by ", a("Blue Matter Science", href="https://bluematterscience.com/", target='_blank')),
+        right = paste0('RAMS v', packageVersion('RAMS'))
       )
     )
 

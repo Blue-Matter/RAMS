@@ -27,7 +27,7 @@ mod_sidebar_main_server <- function(id, objects){
 
       if (objects$loaded) {
         ll <- list(shinydashboard::menuItem('Home', tabName='home', icon=icon('home')),
-                   shinydashboard::menuItem('Summary', tabName = 'summary', icon=icon('list')),
+                   # shinydashboard::menuItem('Summary', tabName = 'summary', icon=icon('list')),
                    shinydashboard::menuItem('Egg / Alevin', tabName = 'egg_alevin', icon=icon('egg', class='fa-sm')),
                    shinydashboard::menuItem('Fry / Parr', tabName='fry_parr', icon=icon('fish', class='fa-xs')),
                    shinydashboard::menuItem('Smolt', tabName='smolt', icon=icon('fish', class='fa-sm')),

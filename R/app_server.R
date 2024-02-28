@@ -54,12 +54,12 @@ app_server <- function(input, output, session) {
   output$logininfo <- renderUI({
     shinyauthr::loginUI("login",
                         title='Login',
-                        cookie_expiry = 7,
-                        additional_ui = tagList(
-                          HTML(knitr::kable(user_base[, c(1,2,4)],
-                                            format = "html",
-                                            table.attr = "style='width:60%;'"))
-                        )
+                        cookie_expiry = 7
+                        # additional_ui = tagList(
+                        #   HTML(knitr::kable(user_base[, c(1,2,4)],
+                        #                     format = "html",
+                        #                     table.attr = "style='width:60%;'"))
+                        # )
                         )
   })
 
@@ -74,9 +74,15 @@ app_server <- function(input, output, session) {
   mod_sidebar_main_server("sidebar_main_1", objects)
   mod_home_server('home', objects)
 
+
   mod_life_stage_tabset_server('egg_alevin', 'Egg / Alevin')
   mod_life_stage_tabset_server('fry_parr', 'Fry / Parr')
-
+  mod_life_stage_tabset_server('smolt', 'Smolt')
+  mod_life_stage_tabset_server('juvenile', 'Juvenile')
+  mod_life_stage_tabset_server('immature', 'Immature')
+  mod_life_stage_tabset_server('return_migration', 'Return Migration')
+  mod_life_stage_tabset_server('terminal_migration', 'Terminal Migration')
+  mod_life_stage_tabset_server('spawning', 'Spawning')
   waiter::waiter_hide()
 }
 
