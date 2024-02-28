@@ -20,6 +20,9 @@ zlib1g-dev
 RUN R -e "install.packages(c('shiny', 'rmarkdown', 'remotes'), repos='https://cloud.r-project.org/')"
 
 # install R package from shiny_live branch
+RUN R -e "remotes::install_github(c('adrianhordyk/shinyauthr'), dependencies=TRUE)"
+
+# install R package from shiny_live branch
 RUN R -e "remotes::install_github(c('blue-matter/RAMS'), 'shiny_live', dependencies=TRUE)"
 
 # instruct Docker to expose port 3838 to the outside world

@@ -23,14 +23,11 @@ mod_life_stage_tabset_ui <- function(id){
 #' @noRd
 mod_life_stage_tabset_server <- function(id, life_stage){
 
-
-
   LF_df <- Limiting_Factors %>% dplyr::filter(Life.Stage ==life_stage)
 
   Life.Stage <- unique(LF_df$Life.Stage)
   Ecosystem.Unit <- unique(LF_df$Ecosystem.Unit)
   LF_categories <- unique(LF_df$Limiting.Factor.Category)
-
 
   ll <- list()
   for (i in seq_along(LF_categories)) {
@@ -44,7 +41,6 @@ mod_life_stage_tabset_server <- function(id, life_stage){
       tagList(
         shinydashboard::box(width=12, title=h3(paste('Life Stage: ', life_stage)),
             h4(paste('Ecosystem Unit: ', Ecosystem.Unit)),
-
             do.call(tabsetPanel, ll)
         )
       )
@@ -55,19 +51,12 @@ mod_life_stage_tabset_server <- function(id, life_stage){
 
   lf_ids <- LF_df$LF_ID
   IDs <- paste0('LF', lf_ids)
-
-  for (i in seq_along(IDs)) {
-    mod_limiting_factor_server(IDs[i])
-  }
-
-
-
+  lapply(IDs, mod_limiting_factor_server)
 
 }
 
 categories_tabs <- function(LF_DF=NULL) {
   sub_cats <- LF_DF$Limiting.Factor.Subcategory
-
   ll <- list()
   for (i in seq_along(sub_cats)) {
     lf_df <- LF_DF %>% dplyr::filter(Limiting.Factor.Subcategory==sub_cats[i])
@@ -157,8 +146,6 @@ mod_limiting_factor_server <- function(id) {
 
 
     lf_id <- as.numeric(gsub(".*\\D", "", id, perl = TRUE))
-
-
 
     LF_DF <- Limiting_Factors %>% dplyr::filter(LF_ID==lf_id)
     output$limiting_factor <- renderUI({
