@@ -89,12 +89,12 @@ mod_limiting_factor_server <- function(id) {
     ns <- session$ns
     # LF_df <- Limiting_Factors %>% dplyr::filter(LF_ID ==LFid)
 
-    spatial_scale <- mod_selectize_colored_server("spatial_scale", id, 'Spatial Risk', list('Low'=1,
+    spatial_scale <- mod_selectize_colored_server("spatial_scale", id, 'Spatial Exposure', list('Low'=1,
                                                                                         'Moderate'=2,
                                                                                         'Medium'=3,
                                                                                         'High'=4,
                                                                                         'Very High'=5))
-    temporal_scale <- mod_selectize_colored_server("temporal_scale", id, 'Temporal Risk', list('Low'=1,
+    temporal_scale <- mod_selectize_colored_server("temporal_scale", id, 'Temporal Exposure', list('Low'=1,
                                                                                            'Moderate'=2,
                                                                                            'Medium'=3,
                                                                                            'High'=4,

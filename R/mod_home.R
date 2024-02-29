@@ -54,7 +54,7 @@ mod_home_ui <- function(id){
 
   tagList(
     shinydashboard::box(width=12, status='primary',
-        title=h3('Welcome to the RAMS App'),
+        title=h3('Welcome to the Risk Assessment Method for Salmon App'),
         shinydashboard::box(solidHeader = TRUE, status='primary', width=12,
             title='RAMS Database',
             column(9,
