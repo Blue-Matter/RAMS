@@ -54,7 +54,7 @@ mod_home_ui <- function(id){
 
   tagList(
     shinydashboard::box(width=12, status='primary',
-        title=h3('Welcome to the RAMS App'),
+        title=h3('Welcome to the Risk Assessment Method for Salmnm App'),
         shinydashboard::box(solidHeader = TRUE, status='primary', width=12,
             title='RAMS Database',
             column(9,
@@ -123,27 +123,21 @@ mod_home_server <- function(id, objects){
 
 
 
-    new_RAMS_modal <- function() {
-      tagList(
-        fluidPage(
-          fluidRow(
-            textInput('name', 'Name')
-          )
-        )
 
-      )
-    }
 
     create_new_Modal <- function() {
       modalDialog(
+        size='l',
         title='New RAMS',
-        new_RAMS_modal(),
+        mod_new_dialog_ui('new_dialog_1'),
         footer = tagList(
           actionButton(ns("save_new"), "Save", icon=icon('save')),
           modalButton("Cancel")
         )
       )
     }
+
+    #TODO add check for save_new
 
 
     observeEvent(input$create_new, ignoreInit = TRUE, {

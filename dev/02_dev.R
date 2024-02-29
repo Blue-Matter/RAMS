@@ -27,6 +27,7 @@ golem::add_module(name = "score_gauge")
 golem::add_module(name = "selectize_trend")
 golem::add_module(name = "life_stage_tabset")
 golem::add_module(name = "sidebar")
+golem::add_module(name = "new_dialog")
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*

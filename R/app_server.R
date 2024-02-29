@@ -72,27 +72,31 @@ app_server <- function(input, output, session) {
   shinyhelper::observe_helpers(help_dir=file.path(app_sys(), 'app/helpfiles'))
 
   mod_sidebar_main_server("sidebar_main_1", objects)
+  mod_new_dialog_server("new_dialog_1")
+
   waitress$inc(10)
   mod_home_server('home', objects)
-  waitress$inc(10)
-  mod_life_stage_tabset_server('egg_alevin', 'Egg / Alevin')
-  waitress$inc(10)
-  mod_life_stage_tabset_server('fry_parr', 'Fry / Parr')
-  waitress$inc(10)
-  mod_life_stage_tabset_server('smolt', 'Smolt')
-  waitress$inc(10)
-  mod_life_stage_tabset_server('juvenile', 'Juvenile')
-  waitress$inc(10)
-  mod_life_stage_tabset_server('immature', 'Immature')
-  waitress$inc(10)
-  mod_life_stage_tabset_server('return_migration', 'Return Migration')
-  waitress$inc(10)
-  mod_life_stage_tabset_server('terminal_migration', 'Terminal Migration')
-  waitress$inc(10)
-  mod_life_stage_tabset_server('spawning', 'Spawning')
+  # waitress$inc(10)
+  # mod_life_stage_tabset_server('egg_alevin', 'Egg / Alevin')
+  # waitress$inc(10)
+  # mod_life_stage_tabset_server('fry_parr', 'Fry / Parr')
+  # waitress$inc(10)
+  # mod_life_stage_tabset_server('smolt', 'Smolt')
+  # waitress$inc(10)
+  # mod_life_stage_tabset_server('juvenile', 'Juvenile')
+  # waitress$inc(10)
+  # mod_life_stage_tabset_server('immature', 'Immature')
+  # waitress$inc(10)
+  # mod_life_stage_tabset_server('return_migration', 'Return Migration')
+  # waitress$inc(10)
+  # mod_life_stage_tabset_server('terminal_migration', 'Terminal Migration')
+  # waitress$inc(10)
+  # mod_life_stage_tabset_server('spawning', 'Spawning')
 
   waitress$close()
-  # waiter::waiter_hide()
+
+
+
 }
 
 
