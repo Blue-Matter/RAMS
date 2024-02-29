@@ -17,21 +17,38 @@ species_list <- list('Oncorhynchus tshawytscha'=1,
                   )
 
 
-CK_CU_Sites <- read.csv('CK_CU_Sites_En.csv')
-CU_Sites <- list(CK_CU_Sites$FULL_CU_IN,
-                 CK_CU_Sites$FULL_CU_IN,
-                 CK_CU_Sites$FULL_CU_IN,
-                 CK_CU_Sites$FULL_CU_IN,
-                 CK_CU_Sites$FULL_CU_IN,
-                 CK_CU_Sites$FULL_CU_IN,
-                 CK_CU_Sites$FULL_CU_IN)
+CK_CU_Info <- read.csv('CK_CU_Sites_En.csv')
+
+CU_Info <- list(CK_CU_Info,
+                CK_CU_Info,
+                CK_CU_Info,
+                CK_CU_Info,
+                CK_CU_Info,
+                CK_CU_Info,
+                CK_CU_Info)
 
 
-order_CU_Sites <- function(CU_codes) {
+Sites_Names <- list(CK_CU_Sites$SITE_NAME,
+                 CK_CU_Sites$SITE_NAME,
+                 CK_CU_Sites$SITE_NAME,
+                 CK_CU_Sites$SITE_NAME,
+                 CK_CU_Sites$SITE_NAME,
+                 CK_CU_Sites$SITE_NAME,
+                 CK_CU_Sites$SITE_NAME)
+
+order_CU_Sites <- function(cu_info) {
+
+  CU_codes <- cu_info$FULL_CU_IN
+  CU_names <- cu_info$CU_NAME
   tt <- strsplit(CU_codes, '-')
   ord <- lapply(tt, '[[', 2) %>% unlist() %>% as.numeric()
-  unique(CU_codes[order(ord)])
+  unique(paste(CU_codes[order(ord)], CU_names[order(ord)], sep=': '))
 }
+
+rel_pol_choices <- c('Fish Stock Provisions',
+                     'Species at Risk Act',
+                     'Wild Salmon Policy'
+                     )
 
 #' new_dialog UI Function
 #'
@@ -59,25 +76,61 @@ mod_new_dialog_server <- function(id){
     ns <- session$ns
 
     selected_species <- reactive(input$species)
+    selected_CUs <- reactive(input$cu_code_select)
+    selected_WSs <- reactive(input$ws_code_select)
 
-    cu_codes <- reactive({
-      order_CU_Sites(CU_Sites[[as.numeric(selected_species())]])
+    cu_info <- reactive({
+      req(selected_species())
+      CU_Info[[as.numeric(selected_species())]]
+    })
+
+    cu_code_name <- reactive({
+      req(selected_species())
+      order_CU_Sites(cu_info())
+    })
+
+
+    sites_options <- reactive({
+      req(selected_CUs())
+      cus <- selected_CUs()
+      cus <- unlist(lapply(strsplit(cus, ':'), '[[', 1))
+      cu_info() %>% dplyr::filter(FULL_CU_IN %in% cus) %>%
+        dplyr::pull(SITE_NAME)
     })
 
     observeEvent(selected_species(), {
       updateSelectInput(
         inputId='cu_code_select',
-        choices = cu_codes(),
-        selected=1
+        choices = cu_code_name()
+      )
+    })
+
+    observeEvent(selected_CUs(), {
+      updateSelectInput(
+        inputId='ws_code_select',
+        choices = sites_options(),
+        selected=selected_WSs()
       )
     })
 
 
     output$cu_code <- renderUI({
       req(selected_species())
-      selectInput(ns('cu_code_select'), with_red_star('CU Code'),
+      selectizeInput(ns('cu_code_select'),
+                  with_red_star('Conservation Unit(s)'),
                   choices=NULL,
-                  multiple=TRUE)
+                  multiple=TRUE,
+                  options=list(placeholder = 'Select CU code(s)'))
+    })
+
+
+    output$watershed <- renderUI({
+      req(selected_CUs())
+      selectizeInput(ns('ws_code_select'), with_red_star('Watershed(s) or Population(s)'),
+                  choices=NULL,
+                  multiple=TRUE,
+                  options=list(create=TRUE,
+                               placeholder = 'Select or Type New'))
     })
 
     output$new_dialog <- renderUI({
@@ -85,32 +138,42 @@ mod_new_dialog_server <- function(id){
         fluidPage(
           fluidRow(
             column(3,
-                   dateInput(ns('date'), with_red_star('Date'),
-                             value=Sys.Date())
-            ),
-            column(3,
-                   selectizeInput(ns('participants'), 'Participants',
-                                  choices=NULL,
-                                  selected=NULL,
-                                  multiple = TRUE,
-                                  options = list(create = TRUE))
+                   dateInput(ns('date'), 'Date',
+                             value=Sys.Date()
                    )
             ),
-
+            column(4,
+                   textInput(ns('uoa'), with_red_star('Unit of Assessment'),
+                             placeholder='e.g., Fall Cowichan Chinook'
+                   )
+            ),
+            column(5,
+                   selectizeInput(ns('rel_pol'),
+                                  with_red_star('Relevant Legislation or Policy'),
+                                  choices=rel_pol_choices,
+                                  multiple=TRUE,
+                                  options=list(create=TRUE,
+                                               placeholder = 'Select or Type New')
+                   )
+            )
+          ),
           fluidRow(
             column(3,
-                   selectizeInput(ns('species') , with_red_star('Species Name'),
+                   selectizeInput(ns('species') , with_red_star('Species'),
                                   choices=species_name_list,
                                   selected=NULL,
                                   multiple = TRUE,
-                                  options = list(maxItems = 1)
+                                  options = list(maxItems = 1,
+                                                 placeholder = 'Select Species')
                    )
             ),
-            column(3,
+            column(5,
                    uiOutput(ns('cu_code'))
-            )
-
+            ),
+            column(4,
+                   uiOutput(ns('watershed')))
           )
+
 
         )
       )

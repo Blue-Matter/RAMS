@@ -54,22 +54,23 @@ mod_home_ui <- function(id){
 
   tagList(
     shinydashboard::box(width=12, status='primary',
-        title=h3('Welcome to the Risk Assessment Method for Salmnm App'),
-        shinydashboard::box(solidHeader = TRUE, status='primary', width=12,
-            title='RAMS Database',
-            column(9,
-                   h4('Load an existing RAMS Process by clicking the',  icon('eye'), 'button',
-                      'on a row in the table below')
-                   ),
-            column(3,
-                   uiOutput(ns('new_button')),
-                   style='float:right'),
+                        title=h3('Welcome to the Risk Assessment Method for Salmon App'),
+                        shinydashboard::box(solidHeader = TRUE, status='primary', width=12,
+                                            title='RAMS Database',
+                                            column(9,
+                                                   h4('Load an existing RAMS Process by clicking the',  icon('eye'), 'button',
+                                                      'on a row in the table below')
+                                            ),
+                                            column(3,
+                                                   uiOutput(ns('new_button')),
+                                                   style='float:right'),
 
-            br(),
-            br(),
-            DT::dataTableOutput(ns('meta_data_table'))
-            )
-        )
+                                            br(),
+                                            br(),
+                                            DT::dataTableOutput(ns('meta_data_table'))
+
+                        )
+    )
 
   )
 }
@@ -81,21 +82,13 @@ mod_home_server <- function(id, objects){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
-    show_new_button <- reactive({
-      # if (objects$user_auth) {
-        tagList(shinyWidgets::actionBttn(ns('create_new'), 'Create New RAMS',
-                                         style = "jelly",
-                                         color='primary',
-                                         size='sm'))
-
-      # } else {
-      #   NULL
-      # }
-    })
 
 
     output$new_button <- renderUI({
-      show_new_button()
+      tagList(shinyWidgets::actionBttn(ns('create_new'), 'Create New RAMS',
+                                       style = "jelly",
+                                       color='primary',
+                                       size='sm'))
     })
 
 
@@ -128,22 +121,38 @@ mod_home_server <- function(id, objects){
     create_new_Modal <- function() {
       modalDialog(
         size='l',
-        title='New RAMS',
+        title='New RAMS Process',
         mod_new_dialog_ui('new_dialog_1'),
         footer = tagList(
-          actionButton(ns("save_new"), "Save", icon=icon('save')),
-          modalButton("Cancel")
+          modalButton("Cancel"),
+          actionButton(ns("next_modal"), "Next", icon=icon('arrow-right'))
         )
       )
     }
 
-    #TODO add check for save_new
+    add_participants_Modal <- function() {
+      modalDialog(
+        size='l',
+        title='Add Participants (optional)',
+        mod_add_participants_ui("add_participants_1"),
+        footer = tagList(
+          modalButton("Cancel"),
+          actionButton(ns("save_new"), "Save", icon=icon('save')),
+        )
+      )
+    }
 
+
+    #TODO add check for save_new
 
     observeEvent(input$create_new, ignoreInit = TRUE, {
       shiny::showModal(create_new_Modal())
-
     })
+
+    observeEvent(input$next_modal, ignoreInit = TRUE, {
+      shiny::showModal(add_participants_Modal())
+    })
+
 
 
     shiny::observeEvent(ns(input$create_new), {

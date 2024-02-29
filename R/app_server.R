@@ -73,6 +73,7 @@ app_server <- function(input, output, session) {
 
   mod_sidebar_main_server("sidebar_main_1", objects)
   mod_new_dialog_server("new_dialog_1")
+  mod_add_participants_server("add_participants_1")
 
   waitress$inc(10)
   mod_home_server('home', objects)
