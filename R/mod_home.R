@@ -129,9 +129,6 @@ mod_home_ui <- function(id){
                         title=h3('Welcome to the Risk Assessment Method for Salmon App'),
                         shinydashboard::box(solidHeader = TRUE, status='primary', width=12,
                                             title='RAMS Database',
-
-                                            # uiOutput(ns('new_button')),
-
                                             column(9,
                                                    h4('Load an existing RAMS Process by clicking the',  icon('eye'), 'button',
                                                       'on a row in the table below')
