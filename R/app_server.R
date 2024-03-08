@@ -1,3 +1,6 @@
+
+
+
 selectize_colors <- c('#dbdbdb', '#00af50', '#ffcc00', '#ff742e', '#ff0000')
 
 select_color_css <- function(parent_id, id, input_val, selectize_colors, class='selectize-input', style=NULL) {
@@ -21,7 +24,7 @@ app_server <- function(input, output, session) {
 
   objects <- reactiveValues(info=NULL,
                             user_auth=FALSE,
-                            loaded=TRUE)
+                            loaded=FALSE)
 
   credentials <- shinyauthr::loginServer(
     id = "login",
@@ -65,22 +68,24 @@ app_server <- function(input, output, session) {
                         )
   })
 
-
+  shinyjs::delay(30,
+                 shinyjs::show('login-panel'))
 
   waitress$set(5)
 
   shinyhelper::observe_helpers(help_dir=file.path(app_sys(), 'app/helpfiles'))
 
   mod_sidebar_main_server("sidebar_main_1", objects)
-  mod_new_dialog_server("new_dialog_1")
-  mod_add_participants_server("add_participants_1")
+
+
 
   waitress$inc(10)
-  mod_home_server('home', objects)
-  # waitress$inc(10)
-  # mod_life_stage_tabset_server('egg_alevin', 'Egg / Alevin')
-  # waitress$inc(10)
-  # mod_life_stage_tabset_server('fry_parr', 'Fry / Parr')
+  mod_home_server('home', objects, credentials)
+
+  waitress$inc(10)
+  mod_life_stage_tabset_server('egg_alevin', 'Egg / Alevin')
+  waitress$inc(10)
+  mod_life_stage_tabset_server('fry_parr', 'Fry / Parr')
   # waitress$inc(10)
   # mod_life_stage_tabset_server('smolt', 'Smolt')
   # waitress$inc(10)
@@ -98,6 +103,8 @@ app_server <- function(input, output, session) {
 
 
 
+  # observeEvent(objects$loaded, ignoreInit=TRUE,
+  #              shinydashboardPlus::updateSidebar('sidebar'))
 }
 
 

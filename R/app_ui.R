@@ -1,4 +1,21 @@
 
+# mytheme <- fresh::create_theme(
+#   fresh::adminlte_color(
+#       light_blue = "#434C5E"
+#     ),
+#   fresh::adminlte_sidebar(
+#       width = "200px",
+#       dark_bg = "#D8DEE9",
+#       dark_hover_bg = "#81A1C1",
+#       dark_color = "#2E3440",
+#       light_bg="#81A1C1"
+#     ),
+#   fresh::adminlte_global(
+#       content_bg = "#FFF",
+#       box_bg = "#D8DEE9",
+#       info_box_bg = "#D8DEE9"
+#     )
+#   )
 
 # How many days should sessions last?
 cookie_expiry <- 7
@@ -44,12 +61,12 @@ app_ui <- function(request) {
                                                            )
                                                          ),
 
-      shinydashboardPlus::dashboardSidebar(collapsed = FALSE,
+      shinydashboardPlus::dashboardSidebar(id='sidebar', collapsed = TRUE,
                                            mod_sidebar_main_ui("sidebar_main_1")
                                            ),
 
       shinydashboard::dashboardBody(
-        # waiter::waiterShowOnLoad(), # will show on load
+        # fresh::use_theme(mytheme),
 
         shinydashboard::tabItems(
           shinydashboard::tabItem(tabName = "home", mod_home_ui('home')),
