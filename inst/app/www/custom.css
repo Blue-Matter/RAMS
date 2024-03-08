@@ -17,3 +17,7 @@
 .colored_selectInput .selectize-control .option:nth-child(5) {
   background-color: #ff0000;
 }
+
+.selectize-control .selectize-input.disabled  {
+  opacity: 1 !important;
+}

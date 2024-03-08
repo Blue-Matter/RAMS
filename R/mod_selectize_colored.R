@@ -22,7 +22,6 @@ mod_selectize_colored_server <- function(id, parent_id, label, choices_list){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
-
     bg <- reactive({
       select_color_css(parent_id, id, input[[id]], selectize_colors)
     })
@@ -40,6 +39,7 @@ mod_selectize_colored_server <- function(id, parent_id, label, choices_list){
         div(
           shinyhelper::helper(selectizeInput(ns(id) , with_red_star(label),
                                              choices=choices_list,
+                                             selected=NULL,
                                              multiple = TRUE,
                                              options = list(maxItems = 1)
           ),
@@ -53,6 +53,20 @@ mod_selectize_colored_server <- function(id, parent_id, label, choices_list){
         uiOutput(ns('background_change'))
       )
     })
+
+
+    # disable the selectInputs when in View mode
+    # observeEvent(input[[id]], {
+    #
+    #   if (ns(id)=='LF1-spatial_scale-spatial_scale') {
+    #
+    #     disid <- ns(id)
+    #
+    #     shinyjs::disable(disid, asis=TRUE)
+    #
+    #   }
+    # })
+
 
     reactive(input[[id]])
 
