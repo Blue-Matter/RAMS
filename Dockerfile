@@ -19,8 +19,6 @@ zlib1g-dev
 # install basic shiny functionality to R, including remotes to install from GitHub
 RUN R -e "install.packages(c('shiny', 'rmarkdown', 'remotes'), repos='https://cloud.r-project.org/')"
 
-# install R package from shiny_live branch
-RUN R -e "remotes::install_github(c('adrianhordyk/shinyauthr'), dependencies=TRUE)"
 
 # install R package from shiny_live branch
 RUN R -e "remotes::install_github(c('blue-matter/RAMS'), 'shiny_live', dependencies=TRUE)"
