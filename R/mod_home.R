@@ -19,7 +19,9 @@ species_list <- c('Oncorhynchus tshawytscha',
 )
 
 
-CK_CU_Info <- read.csv('CK_CU_Sites_En.csv')
+CK_CU_Info <- read.csv('CK_CU_SITES_En.csv')
+
+
 
 CU_Info <- list(CK_CU_Info,
                 CK_CU_Info,
