@@ -11,9 +11,10 @@ Imports:
     DT,
     flexdashboard,
     golem (>= 0.4.1),
-    knitr,
     purrr,
     shiny (>= 1.8.0),
+    shinyalert,
+    shinyauthr,
     shinydashboard,
     shinydashboardPlus,
     shinyhelper,
@@ -25,8 +26,6 @@ Imports:
 Suggests: 
     spelling,
     testthat (>= 3.0.0)
-Remotes: 
-    adrianhordyk/shinyauthr
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
