@@ -77,10 +77,10 @@ app_server <- function(input, output, session) {
 
   mod_sidebar_main_server("sidebar_main_1", objects)
 
-
-
   waitress$inc(10)
-  mod_home_server('home', objects, credentials)
+  mod_home_server('home', objects, credentials, home_session=session)
+  mod_summary_server("summary", objects)
+  mod_table_server("table")
 
   waitress$inc(10)
   mod_life_stage_tabset_server('egg_alevin', 'Egg / Alevin')

@@ -70,6 +70,8 @@ app_ui <- function(request) {
 
         shinydashboard::tabItems(
           shinydashboard::tabItem(tabName = "home", mod_home_ui('home')),
+          shinydashboard::tabItem(tabName = "summary", mod_summary_ui('summary')),
+          shinydashboard::tabItem(tabName = "table", mod_table_ui('table')),
           shinydashboard::tabItem(tabName = "egg_alevin", mod_life_stage_tabset_ui('egg_alevin')),
           shinydashboard::tabItem(tabName = "fry_parr", mod_life_stage_tabset_ui('fry_parr')),
           shinydashboard::tabItem(tabName = "smolt", mod_life_stage_tabset_ui('smolt')),

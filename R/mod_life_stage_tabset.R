@@ -1,4 +1,9 @@
-Limiting_Factors <- read.csv('LIMITING_FACTORS.csv')
+get_limiting_factors <- function() {
+  RAMS::LIMITING_FACTORS
+}
+
+# Limiting_Factors <- get_limiting_factors()
+
 
 
 #' life_stage_tabset UI Function
@@ -23,7 +28,7 @@ mod_life_stage_tabset_ui <- function(id){
 #' @noRd
 mod_life_stage_tabset_server <- function(id, life_stage){
 
-  LF_df <- Limiting_Factors %>% dplyr::filter(Life.Stage ==life_stage)
+  LF_df <- get_limiting_factors() %>% dplyr::filter(Life.Stage ==life_stage)
 
   Life.Stage <- unique(LF_df$Life.Stage)
   Ecosystem.Unit <- unique(LF_df$Ecosystem.Unit)
@@ -147,7 +152,7 @@ mod_limiting_factor_server <- function(id) {
 
     lf_id <- as.numeric(gsub(".*\\D", "", id, perl = TRUE))
 
-    LF_DF <- Limiting_Factors %>% dplyr::filter(LF_ID==lf_id)
+    LF_DF <- get_limiting_factors() %>% dplyr::filter(LF_ID==lf_id)
     output$limiting_factor <- renderUI({
       tagList(
         shinydashboard::box(width=12,

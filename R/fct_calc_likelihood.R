@@ -1,6 +1,4 @@
 library(dplyr)
-exposure_matrix <- read.csv('Exposure_Matrix.csv') %>% as.data.frame()
-future_risk_matrix <- read.csv('Future_Risk_Matrix.csv') %>% as.data.frame()
 
 #' calc_likelihood
 #'
