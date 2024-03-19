@@ -555,10 +555,11 @@ mod_home_server <- function(id, objects, credentials, home_session){
           objects$loaded <- TRUE
           objects$metadata <- load_meta_data()[selected_row,]
           objects$RAMS_scores <- load_RAMS_scores( objects$metadata$RAMS_ID)
+          objects$loaded_RAMS_scores <- load_RAMS_scores( objects$metadata$RAMS_ID)
           objects$Correlated_LFs <- load_Correlated( objects$metadata$RAMS_ID)
         }
-        Metadata <<- objects$metadata
-        RAMS_scores <<- objects$RAMS_scores
+        # Metadata <<- objects$metadata
+        # RAMS_scores <<- objects$RAMS_scores
 
         shinydashboard::updateTabItems(home_session, 'menu_sidebar', 'summary')
       }

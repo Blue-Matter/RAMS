@@ -26,6 +26,9 @@ app_server <- function(input, output, session) {
                             user_auth=FALSE,
                             loaded=FALSE)
 
+
+  sessionlist <- reactiveValues(list=NULL)
+
   credentials <- shinyauthr::loginServer(
     id = "login",
     data = user_base,
@@ -79,25 +82,25 @@ app_server <- function(input, output, session) {
 
   waitress$inc(10)
   mod_home_server('home', objects, credentials, home_session=session)
-  mod_summary_server("summary", objects)
+  mod_summary_server("summary", objects, home_session=session)
   mod_table_server("table")
 
   waitress$inc(10)
-  mod_life_stage_tabset_server('egg_alevin', 'Egg / Alevin')
+  mod_life_stage_tabset_server('egg_alevin', 'Egg / Alevin', 'Freshwater Egg Incubation', objects, home_session=session)
   waitress$inc(10)
-  mod_life_stage_tabset_server('fry_parr', 'Fry / Parr')
+  # mod_life_stage_tabset_server('fry_parr', 'Fry / Parr', 'Freshwater Fry Rearing', objects)
   # waitress$inc(10)
-  # mod_life_stage_tabset_server('smolt', 'Smolt')
+  # mod_life_stage_tabset_server('smolt', 'Smolt', 'Estuarine Smolt Migration and Rearing', objects)
   # waitress$inc(10)
-  # mod_life_stage_tabset_server('juvenile', 'Juvenile')
+  # mod_life_stage_tabset_server('juvenile', 'Juvenile', 'Marine Nearshore Juvenile Rearing and Migration', objects)
   # waitress$inc(10)
-  # mod_life_stage_tabset_server('immature', 'Immature')
+  # mod_life_stage_tabset_server('immature', 'Immature', 'Marine Pelagic Immature Rearing', objects)
   # waitress$inc(10)
-  # mod_life_stage_tabset_server('return_migration', 'Return Migration')
+  # mod_life_stage_tabset_server('return_migration', 'Adult', 'Marine Adult Return Migration', objects)
   # waitress$inc(10)
-  # mod_life_stage_tabset_server('terminal_migration', 'Terminal Migration')
+  # mod_life_stage_tabset_server('terminal_migration', 'Adult', 'Estuary and Freshwater Adult Terminal Migration', objects)
   # waitress$inc(10)
-  # mod_life_stage_tabset_server('spawning', 'Spawning')
+  # mod_life_stage_tabset_server('spawning', 'Adult', 'Freshwater Adult Spawning', objects)
 
   waitress$close()
 

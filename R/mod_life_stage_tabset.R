@@ -26,11 +26,16 @@ mod_life_stage_tabset_ui <- function(id){
 #' life_stage_tabset Server Functions
 #'
 #' @noRd
-mod_life_stage_tabset_server <- function(id, life_stage){
+mod_life_stage_tabset_server <- function(id, life_stage, life_stage_life_history=NULL,
+                                         objects=NULL, home_session=NULL){
 
-  LF_df <- get_limiting_factors() %>% dplyr::filter(Life.Stage ==life_stage)
+  LF_df <- get_limiting_factors() %>%
+    dplyr::filter(Life.Stage ==life_stage,
+                  Life.Stage.and.Life.History.Phase==life_stage_life_history)
 
   Life.Stage <- unique(LF_df$Life.Stage)
+  Life.Stage.and.Life.History.Phase <- unique(LF_df$Life.Stage.and.Life.History.Phase)
+  Life.History.Phase <- unique(LF_df$Life.History.Phase)
   Ecosystem.Unit <- unique(LF_df$Ecosystem.Unit)
   LF_categories <- unique(LF_df$Limiting.Factor.Category)
 
@@ -42,21 +47,28 @@ mod_life_stage_tabset_server <- function(id, life_stage){
 
   moduleServer(id, function(input, output, session){
     ns <- session$ns
+
     output$life_stage_tabset <- renderUI({
       tagList(
         shinydashboard::box(width=12, title=h3(paste('Life Stage: ', life_stage)),
             h4(paste('Ecosystem Unit: ', Ecosystem.Unit)),
-            do.call(tabsetPanel, ll)
+            h4(paste('Life History Phase: ', Life.History.Phase)),
+            br(),
+            do.call(tabsetPanel, c(ll, list(id=id)))
         )
       )
 
     })
-  })
+    # outputOptions(output, "life_stage_tabset", suspendWhenHidden = FALSE)
 
+
+
+
+  })
 
   lf_ids <- LF_df$LF_ID
   IDs <- paste0('LF', lf_ids)
-  lapply(IDs, mod_limiting_factor_server)
+  lapply(IDs, mod_limiting_factor_server, objects=objects)
 
 }
 
@@ -89,23 +101,106 @@ mod_limiting_factor_ui <- function(id) {
 }
 
 
-mod_limiting_factor_server <- function(id) {
+mod_limiting_factor_server <- function(id, objects) {
   moduleServer(id, function(input, output, session){
     ns <- session$ns
-    # LF_df <- Limiting_Factors %>% dplyr::filter(LF_ID ==LFid)
 
-    spatial_scale <- mod_selectize_colored_server("spatial_scale", id, 'Spatial Exposure', list('Low'=1,
-                                                                                        'Moderate'=2,
-                                                                                        'Medium'=3,
-                                                                                        'High'=4,
-                                                                                        'Very High'=5))
-    temporal_scale <- mod_selectize_colored_server("temporal_scale", id, 'Temporal Exposure', list('Low'=1,
-                                                                                           'Moderate'=2,
-                                                                                           'Medium'=3,
-                                                                                           'High'=4,
-                                                                                           'Very High'=5))
+    LF <- reactive({
+      as.numeric(gsub('LF', '', id))
+    })
+
+    get_scores <- function(name, initial=TRUE) {
+      if (initial) {
+        rams_scores <- objects$loaded_RAMS_scores
+      } else {
+        rams_scores <- objects$RAMS_scores
+      }
+      if (is.null(rams_scores)) {
+        return(NULL)
+      }
+      tt <- rams_scores %>% dplyr::filter(LF_ID==LF())
+      tt[name]
+    }
+
+    get_spatial <- reactive({
+      get_scores('Spatial_Exposure')
+
+    })
+
+    get_temporal <- reactive({
+      get_scores('Temporal_Exposure')
+    })
+
+    get_impact <- reactive({
+      get_scores('Impact')
+    })
+
+    get_impact <- reactive({
+      get_scores('Impact')
+    })
+
+    get_current_trend <- reactive({
+      get_scores('Current_Trend')
+    })
+
+    get_future_trend <- reactive({
+      get_scores('Future_Trend')
+    })
+
+    get_confidence <- reactive({
+      get_scores('Confidence')
+    })
+
+    get_proof <- reactive({
+      get_scores('Proof')
+    })
+
+    get_notes <- reactive({
+
+      print('running get_scores from within get_notes')
+      get_scores('Notes', FALSE)
+    })
+
+    update_RAMS_scores <- function(RAMS_scores, LF, Name, Value) {
+      RAMS_scores[[Name]][LF] <- as.numeric(Value)
+      RAMS_scores
+    }
+
+    spatial_scale <- mod_selectize_colored_server("spatial_scale", id,
+                                                  'Spatial Exposure',
+                                                  list('Low'=1,
+                                                       'Moderate'=2,
+                                                       'Medium'=3,
+                                                       'High'=4,
+                                                       'Very High'=5),
+                                                  get_spatial)
+
+
+    observeEvent(spatial_scale(), ignoreInit = TRUE, {
+      objects$RAMS_scores <- update_RAMS_scores(objects$RAMS_scores, LF(),
+                                                'Spatial_Exposure',
+                                                spatial_scale())
+    })
+
+
+    temporal_scale <- mod_selectize_colored_server("temporal_scale", id,
+                                                   'Temporal Exposure',
+                                                   list('Low'=1,
+                                                        'Moderate'=2,
+                                                        'Medium'=3,
+                                                        'High'=4,
+                                                        'Very High'=5),
+                                                   selected=get_temporal)
+
+    observeEvent(temporal_scale(), ignoreInit = TRUE, {
+      objects$RAMS_scores <- update_RAMS_scores(objects$RAMS_scores, LF(),
+                                                'Temporal_Exposure',
+                                                temporal_scale())
+
+    })
 
     exposure_score <- reactive(calc_likelihood(spatial_scale(), temporal_scale()))
+
     mod_score_gauge_server("exposure_category", 'Exposure Score',
                            score_categories,
                            exposure_score,
@@ -115,8 +210,25 @@ mod_limiting_factor_server <- function(id) {
                                                                     'Moderate'=2,
                                                                     'Major'=3,
                                                                     'Severe'=4,
-                                                                    'Critical'=5))
+                                                                    'Critical'=5),
+                                           selected=get_impact)
+
+    observeEvent(impact(), ignoreInit = TRUE, {
+      objects$RAMS_scores <- update_RAMS_scores(objects$RAMS_scores, LF(),
+                                                'Impact',
+                                                impact())
+    })
+
     risk_score <- reactive(calc_likelihood(exposure_score(), impact()))
+
+    observeEvent(risk_score(), ignoreInit = TRUE, {
+      objects$RAMS_scores <- update_RAMS_scores(objects$RAMS_scores, LF(),
+                                                'Risk_Score',
+                                                risk_score())
+
+    })
+
+
 
     mod_score_gauge_server("risk_category", 'Risk Score',
                            score_categories,
@@ -126,13 +238,31 @@ mod_limiting_factor_server <- function(id) {
                                                                                          'Somewhat Decreasing'=2,
                                                                                          'Stable'=3,
                                                                                          'Somewhat Increasing'=4,
-                                                                                         'Strongly Increasing'=5))
+                                                                                         'Strongly Increasing'=5),
+                                          selected=get_current_trend)
+
+    observeEvent(current_trend(), ignoreInit = TRUE, {
+      objects$RAMS_scores <- update_RAMS_scores(objects$RAMS_scores, LF(),
+                                                'Current_Trend',
+                                                current_trend())
+    })
+
     future_trend <- mod_selectize_server("future_trend", 'Future Trend', list('Strongly Decreasing'=1,
                                                                               'Somewhat Decreasing'=2,
                                                                               'Stable'=3,
                                                                               'Somewhat Increasing'=4,
-                                                                              'Strongly Increasing'=5))
+                                                                              'Strongly Increasing'=5),
+                                         selected=get_future_trend)
+
+    observeEvent(future_trend(), ignoreInit = TRUE, {
+      objects$RAMS_scores <- update_RAMS_scores(objects$RAMS_scores, LF(),
+                                                'Future_Trend',
+                                                future_trend())
+    })
+
     future_risk_score <- reactive(calc_future_score(risk_score(), future_trend()))
+
+
 
     mod_score_gauge_server("future_category", 'Future Risk Score',
                            score_categories,
@@ -141,22 +271,37 @@ mod_limiting_factor_server <- function(id) {
 
     confidence <- mod_selectize_server("confidence", 'Confidence Scale', list('Low'=1,
                                                                               'Medium'=2,
-                                                                              'High'=3))
+                                                                              'High'=3),
+                                       get_confidence)
+
+    observeEvent(confidence(), ignoreInit = TRUE, {
+      objects$RAMS_scores <- update_RAMS_scores(objects$RAMS_scores, LF(),
+                                                'Confidence',
+                                                confidence())
+    })
 
     proof <- mod_selectize_server("proof", 'Level of Proof', list('Hypothetical'=1,
                                                                   'Expert opinion'=2,
                                                                   'Derived information'=3,
                                                                   'Expanded observation'=4,
-                                                                  'Empirical observation'=5))
+                                                                  'Empirical observation'=5),
+                                  get_proof)
+
+    observeEvent(proof(), ignoreInit = TRUE, {
+      objects$RAMS_scores <- update_RAMS_scores(objects$RAMS_scores, LF(),
+                                                'Proof',
+                                                proof())
+    })
 
 
     lf_id <- as.numeric(gsub(".*\\D", "", id, perl = TRUE))
 
     LF_DF <- get_limiting_factors() %>% dplyr::filter(LF_ID==lf_id)
     output$limiting_factor <- renderUI({
+
       tagList(
         shinydashboard::box(width=12,
-                shinydashboardPlus::box(title='Biological Risk Scores', width=9, id='brs',
+                shinydashboardPlus::box(title='Biological Risk Scores', width=12, id='brs',
                                         solidHeader = TRUE,
                                         status = "primary",
                                         fluidRow(
@@ -210,10 +355,17 @@ mod_limiting_factor_server <- function(id) {
                 )
             )
     })
+    # outputOptions(output, "limiting_factor", suspendWhenHidden = FALSE)
+
+    observeEvent(input$add_notes,ignoreInit = TRUE, {
+      showModal(data_gaps_Modal())
+
+    })
 
     data_gaps_Modal <- function() {
       modalDialog(
-        textAreaInput('data_gaps_notes', 'Notes',
+        textAreaInput(ns('data_gaps_notes'), 'Notes',
+                      value=get_notes(),
                   placeholder = 'Add notes here on data gaps or other relevant information',
                   width='100%', height='200px'),
         size='l',
@@ -225,16 +377,12 @@ mod_limiting_factor_server <- function(id) {
       )
     }
 
-    observeEvent(input$add_notes,ignoreInit = TRUE, {
-      showModal(data_gaps_Modal())
-
-    })
-
     observeEvent(input$save_notes,ignoreInit = TRUE, {
-      print('TODO save notes to RAMS object')
+      print(input$data_gaps_notes)
+      objects$RAMS_scores <- update_RAMS_scores(objects$RAMS_scores, LF(),
+                                                'Notes',
+                                                input$data_gaps_notes)
       shiny::removeModal()
-
-
     })
 
 

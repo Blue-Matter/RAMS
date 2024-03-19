@@ -1,117 +1,117 @@
 LF_ID,Ecosystem Unit,Life Stage,Life History Phase,Limiting Factor Category,Limiting Factor Subcategory,Life Stage and Life History Phase
-1,Freshwater,Egg / Alevin,1 - Egg incubation,Direct Anthropogenic Interactions,Harassment and disturbance,1 - Freshwater egg incubation
-2,Freshwater,Egg / Alevin,1 - Egg incubation,Biological Interactions,Competition,1 - Freshwater egg incubation
-3,Freshwater,Egg / Alevin,1 - Egg incubation,Biological Interactions,"Parasites, pathogens, disease, harmful algae",1 - Freshwater egg incubation
-4,Freshwater,Egg / Alevin,1 - Egg incubation,Biological Interactions,Predation,1 - Freshwater egg incubation
-5,Freshwater,Egg / Alevin,1 - Egg incubation,Physical Habitat ,Channel stability and form,1 - Freshwater egg incubation
-6,Freshwater,Egg / Alevin,1 - Egg incubation,Hydrology & Oceanography,High flows,1 - Freshwater egg incubation
-7,Freshwater,Egg / Alevin,1 - Egg incubation,Hydrology & Oceanography,Low flows,1 - Freshwater egg incubation
-8,Freshwater,Egg / Alevin,1 - Egg incubation,Water Quality,Temperature,1 - Freshwater egg incubation
-9,Freshwater,Egg / Alevin,1 - Egg incubation,Water Quality,Dissolved Oxygen,1 - Freshwater egg incubation
-10,Freshwater,Egg / Alevin,1 - Egg incubation,Water Quality,"Chemistry (incl. turbidity, pH, salinity)",1 - Freshwater egg incubation
-11,Freshwater,Egg / Alevin,1 - Egg incubation,Water Quality,Contaminants and deleterious substances,1 - Freshwater egg incubation
-12,Freshwater,Fry / Parr,2 - Juvenile rearing,Direct Anthropogenic Interactions,Harassment and disturbance,2 - Freshwater fry rearing
-13,Freshwater,Fry / Parr,2 - Juvenile rearing,Biological Interactions,Competition,2 - Freshwater fry rearing
-14,Freshwater,Fry / Parr,2 - Juvenile rearing,Biological Interactions,"Parasites, pathogens, disease, harmful algae",2 - Freshwater fry rearing
-15,Freshwater,Fry / Parr,2 - Juvenile rearing,Biological Interactions,Predation,2 - Freshwater fry rearing
-16,Freshwater,Fry / Parr,2 - Juvenile rearing,Biological Interactions,Prey and food,2 - Freshwater fry rearing
-17,Freshwater,Fry / Parr,2 - Juvenile rearing,Physical Habitat ,Channel stability and form,2 - Freshwater fry rearing
-18,Freshwater,Fry / Parr,2 - Juvenile rearing,Physical Habitat ,Aquatic habitat quality and quantity,2 - Freshwater fry rearing
-19,Freshwater,Fry / Parr,2 - Juvenile rearing,Physical Habitat ,Terrestrial habitat quality and quantity,2 - Freshwater fry rearing
-20,Freshwater,Fry / Parr,2 - Juvenile rearing,Hydrology & Oceanography,High flows,2 - Freshwater fry rearing
-21,Freshwater,Fry / Parr,2 - Juvenile rearing,Hydrology & Oceanography,Low flows,2 - Freshwater fry rearing
-22,Freshwater,Fry / Parr,2 - Juvenile rearing,Water Quality,Temperature,2 - Freshwater fry rearing
-23,Freshwater,Fry / Parr,2 - Juvenile rearing,Water Quality,Dissolved Oxygen,2 - Freshwater fry rearing
-24,Freshwater,Fry / Parr,2 - Juvenile rearing,Water Quality,"Chemistry (incl. turbidity, pH, salinity)",2 - Freshwater fry rearing
-25,Freshwater,Fry / Parr,2 - Juvenile rearing,Water Quality,Contaminants and deleterious substances,2 - Freshwater fry rearing
-26,Estuarine,Smolt,3 - Juvenile rearing,Direct Anthropogenic Interactions,Harassment and disturbance,3 - Estuarine smolt migration and rearing
-27,Estuarine,Smolt,3 - Juvenile rearing,Biological Interactions,Competition,3 - Estuarine smolt migration and rearing
-28,Estuarine,Smolt,3 - Juvenile rearing,Biological Interactions,"Parasites, pathogens, disease, harmful algae",3 - Estuarine smolt migration and rearing
-29,Estuarine,Smolt,3 - Juvenile rearing,Biological Interactions,Predation,3 - Estuarine smolt migration and rearing
-30,Estuarine,Smolt,3 - Juvenile rearing,Biological Interactions,Prey and food,3 - Estuarine smolt migration and rearing
-31,Estuarine,Smolt,3 - Juvenile rearing,Physical Habitat ,Barriers,3 - Estuarine smolt migration and rearing
-32,Estuarine,Smolt,3 - Juvenile rearing,Physical Habitat ,Channel stability and form,3 - Estuarine smolt migration and rearing
-33,Estuarine,Smolt,3 - Juvenile rearing,Physical Habitat ,Aquatic habitat quality and quantity,3 - Estuarine smolt migration and rearing
-34,Estuarine,Smolt,3 - Juvenile rearing,Physical Habitat ,Terrestrial habitat quality and quantity,3 - Estuarine smolt migration and rearing
-37,Estuarine,Smolt,3 - Juvenile rearing,Hydrology & Oceanography,High flows,3 - Estuarine smolt migration and rearing
-38,Estuarine,Smolt,3 - Juvenile rearing,Hydrology & Oceanography,Low flows,3 - Estuarine smolt migration and rearing
-39,Estuarine,Smolt,3 - Juvenile rearing,Hydrology & Oceanography,Physical Oceanography,3 - Estuarine smolt migration and rearing
-40,Estuarine,Smolt,3 - Juvenile rearing,Water Quality,Temperature,3 - Estuarine smolt migration and rearing
-41,Estuarine,Smolt,3 - Juvenile rearing,Water Quality,Dissolved Oxygen,3 - Estuarine smolt migration and rearing
-42,Estuarine,Smolt,3 - Juvenile rearing,Water Quality,"Chemistry (incl. turbidity, pH, salinity)",3 - Estuarine smolt migration and rearing
-43,Estuarine,Smolt,3 - Juvenile rearing,Water Quality,Contaminants and deleterious substances,3 - Estuarine smolt migration and rearing
-44,Marine (nearshore),Juvenile,4 - Juvenile rearing and migration,Direct Anthropogenic Interactions,Harassment and disturbance,4 - Marine nearshore juvenile rearing and migration
-45,Marine (nearshore),Juvenile,4 - Juvenile rearing and migration,Direct Anthropogenic Interactions,Fishing,4 - Marine nearshore juvenile rearing and migration
-46,Marine (nearshore),Juvenile,4 - Juvenile rearing and migration,Biological Interactions,Competition,4 - Marine nearshore juvenile rearing and migration
-47,Marine (nearshore),Juvenile,4 - Juvenile rearing and migration,Biological Interactions,"Parasites, pathogens, disease, harmful algae",4 - Marine nearshore juvenile rearing and migration
-48,Marine (nearshore),Juvenile,4 - Juvenile rearing and migration,Biological Interactions,Predation,4 - Marine nearshore juvenile rearing and migration
-49,Marine (nearshore),Juvenile,4 - Juvenile rearing and migration,Biological Interactions,Prey and food,4 - Marine nearshore juvenile rearing and migration
-50,Marine (nearshore),Juvenile,4 - Juvenile rearing and migration,Physical Habitat ,Barriers,4 - Marine nearshore juvenile rearing and migration
-51,Marine (nearshore),Juvenile,4 - Juvenile rearing and migration,Physical Habitat ,Aquatic habitat quality and quantity,4 - Marine nearshore juvenile rearing and migration
-52,Marine (nearshore),Juvenile,4 - Juvenile rearing and migration,Hydrology & Oceanography,Physical Oceanography,4 - Marine nearshore juvenile rearing and migration
-53,Marine (nearshore),Juvenile,4 - Juvenile rearing and migration,Water Quality,Temperature,4 - Marine nearshore juvenile rearing and migration
-54,Marine (nearshore),Juvenile,4 - Juvenile rearing and migration,Water Quality,Dissolved Oxygen,4 - Marine nearshore juvenile rearing and migration
-55,Marine (nearshore),Juvenile,4 - Juvenile rearing and migration,Water Quality,"Chemistry (incl. turbidity, pH, salinity)",4 - Marine nearshore juvenile rearing and migration
-56,Marine (nearshore),Juvenile,4 - Juvenile rearing and migration,Water Quality,Contaminants and deleterious substances,4 - Marine nearshore juvenile rearing and migration
-57,Marine (pelagic),Immature,5 - Immature rearing,Direct Anthropogenic Interactions,Harassment and disturbance,5 - Marine pelagic immature rearing
-58,Marine (pelagic),Immature,5 - Immature rearing,Direct Anthropogenic Interactions,Fishing,5 - Marine pelagic immature rearing
-59,Marine (pelagic),Immature,5 - Immature rearing,Biological Interactions,Competition,5 - Marine pelagic immature rearing
-60,Marine (pelagic),Immature,5 - Immature rearing,Biological Interactions,"Parasites, pathogens, disease, harmful algae",5 - Marine pelagic immature rearing
-61,Marine (pelagic),Immature,5 - Immature rearing,Biological Interactions,Predation,5 - Marine pelagic immature rearing
-62,Marine (pelagic),Immature,5 - Immature rearing,Biological Interactions,Prey and food,5 - Marine pelagic immature rearing
-63,Marine (pelagic),Immature,5 - Immature rearing,Physical Habitat ,Barriers,5 - Marine pelagic immature rearing
-64,Marine (pelagic),Immature,5 - Immature rearing,Physical Habitat ,Aquatic habitat quality and quantity,5 - Marine pelagic immature rearing
-65,Marine (pelagic),Immature,5 - Immature rearing,Hydrology & Oceanography,Physical Oceanography,5 - Marine pelagic immature rearing
-66,Marine (pelagic),Immature,5 - Immature rearing,Water Quality,Temperature,5 - Marine pelagic immature rearing
-67,Marine (pelagic),Immature,5 - Immature rearing,Water Quality,Dissolved Oxygen,5 - Marine pelagic immature rearing
-68,Marine (pelagic),Immature,5 - Immature rearing,Water Quality,"Chemistry (incl. turbidity, pH, salinity)",5 - Marine pelagic immature rearing
-69,Marine (pelagic),Immature,5 - Immature rearing,Water Quality,Contaminants and deleterious substances,5 - Marine pelagic immature rearing
-70,Marine (pelagic and nearshore),Adult,6 - Adult return migration,Direct Anthropogenic Interactions,Harassment and disturbance,6 - Marine adult return migration
-71,Marine (pelagic and nearshore),Adult,6 - Adult return migration,Direct Anthropogenic Interactions,Fishing,6 - Marine adult return migration
-72,Marine (pelagic and nearshore),Adult,6 - Adult return migration,Biological Interactions,Competition,6 - Marine adult return migration
-73,Marine (pelagic and nearshore),Adult,6 - Adult return migration,Biological Interactions,"Parasites, pathogens, disease, harmful algae",6 - Marine adult return migration
-74,Marine (pelagic and nearshore),Adult,6 - Adult return migration,Biological Interactions,Predation,6 - Marine adult return migration
-75,Marine (pelagic and nearshore),Adult,6 - Adult return migration,Biological Interactions,Prey and food,6 - Marine adult return migration
-76,Marine (pelagic and nearshore),Adult,6 - Adult return migration,Physical Habitat ,Barriers,6 - Marine adult return migration
-77,Marine (pelagic and nearshore),Adult,6 - Adult return migration,Physical Habitat ,Aquatic habitat quality and quantity,6 - Marine adult return migration
-78,Marine (pelagic and nearshore),Adult,6 - Adult return migration,Hydrology & Oceanography,Physical Oceanography,6 - Marine adult return migration
-79,Marine (pelagic and nearshore),Adult,6 - Adult return migration,Water Quality,Temperature,6 - Marine adult return migration
-80,Marine (pelagic and nearshore),Adult,6 - Adult return migration,Water Quality,Dissolved Oxygen,6 - Marine adult return migration
-81,Marine (pelagic and nearshore),Adult,6 - Adult return migration,Water Quality,"Chemistry (incl. turbidity, pH, salinity)",6 - Marine adult return migration
-82,Marine (pelagic and nearshore),Adult,6 - Adult return migration,Water Quality,Contaminants and deleterious substances,6 - Marine adult return migration
-83,Estuary and Freshwater,Adult,7 - Adult terminal migration,Direct Anthropogenic Interactions,Harassment and disturbance,7 - Estuary and freshwater adult terminal migration
-84,Estuary and Freshwater,Adult,7 - Adult terminal migration,Direct Anthropogenic Interactions,Fishing,7 - Estuary and freshwater adult terminal migration
-85,Estuary and Freshwater,Adult,7 - Adult terminal migration,Biological Interactions,Competition,7 - Estuary and freshwater adult terminal migration
-86,Estuary and Freshwater,Adult,7 - Adult terminal migration,Biological Interactions,"Parasites, pathogens, disease, harmful algae",7 - Estuary and freshwater adult terminal migration
-87,Estuary and Freshwater,Adult,7 - Adult terminal migration,Biological Interactions,Predation,7 - Estuary and freshwater adult terminal migration
-88,Estuary and Freshwater,Adult,7 - Adult terminal migration,Biological Interactions,Prey and food,7 - Estuary and freshwater adult terminal migration
-89,Estuary and Freshwater,Adult,7 - Adult terminal migration,Physical Habitat ,Barriers,7 - Estuary and freshwater adult terminal migration
-90,Estuary and Freshwater,Adult,7 - Adult terminal migration,Physical Habitat ,Channel stability and form,7 - Estuary and freshwater adult terminal migration
-91,Estuary and Freshwater,Adult,7 - Adult terminal migration,Physical Habitat ,Aquatic habitat quality and quantity,7 - Estuary and freshwater adult terminal migration
-92,Estuary and Freshwater,Adult,7 - Adult terminal migration,Physical Habitat ,Terrestrial habitat quality and quantity,7 - Estuary and freshwater adult terminal migration
-93,Estuary and Freshwater,Adult,7 - Adult terminal migration,Hydrology & Oceanography,High flows,7 - Estuary and freshwater adult terminal migration
-94,Estuary and Freshwater,Adult,7 - Adult terminal migration,Hydrology & Oceanography,Low flows,7 - Estuary and freshwater adult terminal migration
-95,Estuary and Freshwater,Adult,7 - Adult terminal migration,Hydrology & Oceanography,Physical Oceanography,7 - Estuary and freshwater adult terminal migration
-96,Estuary and Freshwater,Adult,7 - Adult terminal migration,Water Quality,Temperature,7 - Estuary and freshwater adult terminal migration
-97,Estuary and Freshwater,Adult,7 - Adult terminal migration,Water Quality,Dissolved Oxygen,7 - Estuary and freshwater adult terminal migration
-98,Estuary and Freshwater,Adult,7 - Adult terminal migration,Water Quality,"Chemistry (incl. turbidity, pH, salinity)",7 - Estuary and freshwater adult terminal migration
-99,Estuary and Freshwater,Adult,7 - Adult terminal migration,Water Quality,Contaminants and deleterious substances,7 - Estuary and freshwater adult terminal migration
-100,Freshwater,Adult,8 - Adult spawning,Direct Anthropogenic Interactions,Harassment and disturbance,8 - Freshwater adult spawning
-101,Freshwater,Adult,8 - Adult spawning,Direct Anthropogenic Interactions,Fishing,8 - Freshwater adult spawning
-102,Freshwater,Adult,8 - Adult spawning,Biological Interactions,Competition,8 - Freshwater adult spawning
-103,Freshwater,Adult,8 - Adult spawning,Biological Interactions,"Parasites, pathogens, disease, harmful algae",8 - Freshwater adult spawning
-104,Freshwater,Adult,8 - Adult spawning,Biological Interactions,Predation,8 - Freshwater adult spawning
-105,Freshwater,Adult,8 - Adult spawning,Biological Interactions,Prey and food,8 - Freshwater adult spawning
-106,Freshwater,Adult,8 - Adult spawning,Physical Habitat ,Barriers,8 - Freshwater adult spawning
-107,Freshwater,Adult,8 - Adult spawning,Physical Habitat ,Channel stability and form,8 - Freshwater adult spawning
-108,Freshwater,Adult,8 - Adult spawning,Physical Habitat ,Aquatic habitat quality and quantity,8 - Freshwater adult spawning
-109,Freshwater,Adult,8 - Adult spawning,Physical Habitat ,Terrestrial habitat quality and quantity,8 - Freshwater adult spawning
-110,Freshwater,Adult,8 - Adult spawning,Hydrology & Oceanography,High flows,8 - Freshwater adult spawning
-111,Freshwater,Adult,8 - Adult spawning,Hydrology & Oceanography,Low flows,8 - Freshwater adult spawning
-112,Freshwater,Adult,8 - Adult spawning,Hydrology & Oceanography,Physical Oceanography,8 - Freshwater adult spawning
-113,Freshwater,Adult,8 - Adult spawning,Water Quality,Temperature,8 - Freshwater adult spawning
-114,Freshwater,Adult,8 - Adult spawning,Water Quality,Dissolved Oxygen,8 - Freshwater adult spawning
-115,Freshwater,Adult,8 - Adult spawning,Water Quality,"Chemistry (incl. turbidity, pH, salinity)",8 - Freshwater adult spawning
-116,Freshwater,Adult,8 - Adult spawning,Water Quality,Contaminants and deleterious substances,8 - Freshwater adult spawning
-117,N/A,N/A,9 - Intergenerational,Population,Genotypic effects,9 - Intergenerational
-118,N/A,N/A,9 - Intergenerational,Population,Phenotypic effects,9 - Intergenerational
+1,Freshwater,Egg / Alevin,Egg Incubation,Direct Anthropogenic Interactions,Harassment and disturbance,Freshwater Egg Incubation
+2,Freshwater,Egg / Alevin,Egg Incubation,Biological Interactions,Competition,Freshwater Egg Incubation
+3,Freshwater,Egg / Alevin,Egg Incubation,Biological Interactions,"Parasites, pathogens, disease, harmful algae",Freshwater Egg Incubation
+4,Freshwater,Egg / Alevin,Egg Incubation,Biological Interactions,Predation,Freshwater Egg Incubation
+5,Freshwater,Egg / Alevin,Egg Incubation,Physical Habitat ,Channel stability and form,Freshwater Egg Incubation
+6,Freshwater,Egg / Alevin,Egg Incubation,Hydrology & Oceanography,High flows,Freshwater Egg Incubation
+7,Freshwater,Egg / Alevin,Egg Incubation,Hydrology & Oceanography,Low flows,Freshwater Egg Incubation
+8,Freshwater,Egg / Alevin,Egg Incubation,Water Quality,Temperature,Freshwater Egg Incubation
+9,Freshwater,Egg / Alevin,Egg Incubation,Water Quality,Dissolved Oxygen,Freshwater Egg Incubation
+10,Freshwater,Egg / Alevin,Egg Incubation,Water Quality,"Chemistry (incl. turbidity, pH, salinity)",Freshwater Egg Incubation
+11,Freshwater,Egg / Alevin,Egg Incubation,Water Quality,Contaminants and deleterious substances,Freshwater Egg Incubation
+12,Freshwater,Fry / Parr,Juvenile Rearing,Direct Anthropogenic Interactions,Harassment and disturbance,Freshwater Fry Rearing
+13,Freshwater,Fry / Parr,Juvenile Rearing,Biological Interactions,Competition,Freshwater Fry Rearing
+14,Freshwater,Fry / Parr,Juvenile Rearing,Biological Interactions,"Parasites, pathogens, disease, harmful algae",Freshwater Fry Rearing
+15,Freshwater,Fry / Parr,Juvenile Rearing,Biological Interactions,Predation,Freshwater Fry Rearing
+16,Freshwater,Fry / Parr,Juvenile Rearing,Biological Interactions,Prey and food,Freshwater Fry Rearing
+17,Freshwater,Fry / Parr,Juvenile Rearing,Physical Habitat ,Channel stability and form,Freshwater Fry Rearing
+18,Freshwater,Fry / Parr,Juvenile Rearing,Physical Habitat ,Aquatic habitat quality and quantity,Freshwater Fry Rearing
+19,Freshwater,Fry / Parr,Juvenile Rearing,Physical Habitat ,Terrestrial habitat quality and quantity,Freshwater Fry Rearing
+20,Freshwater,Fry / Parr,Juvenile Rearing,Hydrology & Oceanography,High flows,Freshwater Fry Rearing
+21,Freshwater,Fry / Parr,Juvenile Rearing,Hydrology & Oceanography,Low flows,Freshwater Fry Rearing
+22,Freshwater,Fry / Parr,Juvenile Rearing,Water Quality,Temperature,Freshwater Fry Rearing
+23,Freshwater,Fry / Parr,Juvenile Rearing,Water Quality,Dissolved Oxygen,Freshwater Fry Rearing
+24,Freshwater,Fry / Parr,Juvenile Rearing,Water Quality,"Chemistry (incl. turbidity, pH, salinity)",Freshwater Fry Rearing
+25,Freshwater,Fry / Parr,Juvenile Rearing,Water Quality,Contaminants and deleterious substances,Freshwater Fry Rearing
+26,Estuarine,Smolt,Juvenile Rearing,Direct Anthropogenic Interactions,Harassment and disturbance,Estuarine Smolt Migration and Rearing
+27,Estuarine,Smolt,Juvenile Rearing,Biological Interactions,Competition,Estuarine Smolt Migration and Rearing
+28,Estuarine,Smolt,Juvenile Rearing,Biological Interactions,"Parasites, pathogens, disease, harmful algae",Estuarine Smolt Migration and Rearing
+29,Estuarine,Smolt,Juvenile Rearing,Biological Interactions,Predation,Estuarine Smolt Migration and Rearing
+30,Estuarine,Smolt,Juvenile Rearing,Biological Interactions,Prey and food,Estuarine Smolt Migration and Rearing
+31,Estuarine,Smolt,Juvenile Rearing,Physical Habitat ,Barriers,Estuarine Smolt Migration and Rearing
+32,Estuarine,Smolt,Juvenile Rearing,Physical Habitat ,Channel stability and form,Estuarine Smolt Migration and Rearing
+33,Estuarine,Smolt,Juvenile Rearing,Physical Habitat ,Aquatic habitat quality and quantity,Estuarine Smolt Migration and Rearing
+34,Estuarine,Smolt,Juvenile Rearing,Physical Habitat ,Terrestrial habitat quality and quantity,Estuarine Smolt Migration and Rearing
+37,Estuarine,Smolt,Juvenile Rearing,Hydrology & Oceanography,High flows,Estuarine Smolt Migration and Rearing
+38,Estuarine,Smolt,Juvenile Rearing,Hydrology & Oceanography,Low flows,Estuarine Smolt Migration and Rearing
+39,Estuarine,Smolt,Juvenile Rearing,Hydrology & Oceanography,Physical Oceanography,Estuarine Smolt Migration and Rearing
+40,Estuarine,Smolt,Juvenile Rearing,Water Quality,Temperature,Estuarine Smolt Migration and Rearing
+41,Estuarine,Smolt,Juvenile Rearing,Water Quality,Dissolved Oxygen,Estuarine Smolt Migration and Rearing
+42,Estuarine,Smolt,Juvenile Rearing,Water Quality,"Chemistry (incl. turbidity, pH, salinity)",Estuarine Smolt Migration and Rearing
+43,Estuarine,Smolt,Juvenile Rearing,Water Quality,Contaminants and deleterious substances,Estuarine Smolt Migration and Rearing
+44,Marine (nearshore),Juvenile,Juvenile Rearing and Migration,Direct Anthropogenic Interactions,Harassment and disturbance,Marine Nearshore Juvenile Rearing and Migration
+45,Marine (nearshore),Juvenile,Juvenile Rearing and Migration,Direct Anthropogenic Interactions,Fishing,Marine Nearshore Juvenile Rearing and Migration
+46,Marine (nearshore),Juvenile,Juvenile Rearing and Migration,Biological Interactions,Competition,Marine Nearshore Juvenile Rearing and Migration
+47,Marine (nearshore),Juvenile,Juvenile Rearing and Migration,Biological Interactions,"Parasites, pathogens, disease, harmful algae",Marine Nearshore Juvenile Rearing and Migration
+48,Marine (nearshore),Juvenile,Juvenile Rearing and Migration,Biological Interactions,Predation,Marine Nearshore Juvenile Rearing and Migration
+49,Marine (nearshore),Juvenile,Juvenile Rearing and Migration,Biological Interactions,Prey and food,Marine Nearshore Juvenile Rearing and Migration
+50,Marine (nearshore),Juvenile,Juvenile Rearing and Migration,Physical Habitat ,Barriers,Marine Nearshore Juvenile Rearing and Migration
+51,Marine (nearshore),Juvenile,Juvenile Rearing and Migration,Physical Habitat ,Aquatic habitat quality and quantity,Marine Nearshore Juvenile Rearing and Migration
+52,Marine (nearshore),Juvenile,Juvenile Rearing and Migration,Hydrology & Oceanography,Physical Oceanography,Marine Nearshore Juvenile Rearing and Migration
+53,Marine (nearshore),Juvenile,Juvenile Rearing and Migration,Water Quality,Temperature,Marine Nearshore Juvenile Rearing and Migration
+54,Marine (nearshore),Juvenile,Juvenile Rearing and Migration,Water Quality,Dissolved Oxygen,Marine Nearshore Juvenile Rearing and Migration
+55,Marine (nearshore),Juvenile,Juvenile Rearing and Migration,Water Quality,"Chemistry (incl. turbidity, pH, salinity)",Marine Nearshore Juvenile Rearing and Migration
+56,Marine (nearshore),Juvenile,Juvenile Rearing and Migration,Water Quality,Contaminants and deleterious substances,Marine Nearshore Juvenile Rearing and Migration
+57,Marine (pelagic),Immature,Immature Rearing,Direct Anthropogenic Interactions,Harassment and disturbance,Marine Pelagic Immature Rearing
+58,Marine (pelagic),Immature,Immature Rearing,Direct Anthropogenic Interactions,Fishing,Marine Pelagic Immature Rearing
+59,Marine (pelagic),Immature,Immature Rearing,Biological Interactions,Competition,Marine Pelagic Immature Rearing
+60,Marine (pelagic),Immature,Immature Rearing,Biological Interactions,"Parasites, pathogens, disease, harmful algae",Marine Pelagic Immature Rearing
+61,Marine (pelagic),Immature,Immature Rearing,Biological Interactions,Predation,Marine Pelagic Immature Rearing
+62,Marine (pelagic),Immature,Immature Rearing,Biological Interactions,Prey and food,Marine Pelagic Immature Rearing
+63,Marine (pelagic),Immature,Immature Rearing,Physical Habitat ,Barriers,Marine Pelagic Immature Rearing
+64,Marine (pelagic),Immature,Immature Rearing,Physical Habitat ,Aquatic habitat quality and quantity,Marine Pelagic Immature Rearing
+65,Marine (pelagic),Immature,Immature Rearing,Hydrology & Oceanography,Physical Oceanography,Marine Pelagic Immature Rearing
+66,Marine (pelagic),Immature,Immature Rearing,Water Quality,Temperature,Marine Pelagic Immature Rearing
+67,Marine (pelagic),Immature,Immature Rearing,Water Quality,Dissolved Oxygen,Marine Pelagic Immature Rearing
+68,Marine (pelagic),Immature,Immature Rearing,Water Quality,"Chemistry (incl. turbidity, pH, salinity)",Marine Pelagic Immature Rearing
+69,Marine (pelagic),Immature,Immature Rearing,Water Quality,Contaminants and deleterious substances,Marine Pelagic Immature Rearing
+70,Marine (pelagic and nearshore),Adult,Adult Return Migration,Direct Anthropogenic Interactions,Harassment and disturbance,Marine Adult Return Migration
+71,Marine (pelagic and nearshore),Adult,Adult Return Migration,Direct Anthropogenic Interactions,Fishing,Marine Adult Return Migration
+72,Marine (pelagic and nearshore),Adult,Adult Return Migration,Biological Interactions,Competition,Marine Adult Return Migration
+73,Marine (pelagic and nearshore),Adult,Adult Return Migration,Biological Interactions,"Parasites, pathogens, disease, harmful algae",Marine Adult Return Migration
+74,Marine (pelagic and nearshore),Adult,Adult Return Migration,Biological Interactions,Predation,Marine Adult Return Migration
+75,Marine (pelagic and nearshore),Adult,Adult Return Migration,Biological Interactions,Prey and food,Marine Adult Return Migration
+76,Marine (pelagic and nearshore),Adult,Adult Return Migration,Physical Habitat ,Barriers,Marine Adult Return Migration
+77,Marine (pelagic and nearshore),Adult,Adult Return Migration,Physical Habitat ,Aquatic habitat quality and quantity,Marine Adult Return Migration
+78,Marine (pelagic and nearshore),Adult,Adult Return Migration,Hydrology & Oceanography,Physical Oceanography,Marine Adult Return Migration
+79,Marine (pelagic and nearshore),Adult,Adult Return Migration,Water Quality,Temperature,Marine Adult Return Migration
+80,Marine (pelagic and nearshore),Adult,Adult Return Migration,Water Quality,Dissolved Oxygen,Marine Adult Return Migration
+81,Marine (pelagic and nearshore),Adult,Adult Return Migration,Water Quality,"Chemistry (incl. turbidity, pH, salinity)",Marine Adult Return Migration
+82,Marine (pelagic and nearshore),Adult,Adult Return Migration,Water Quality,Contaminants and deleterious substances,Marine Adult Return Migration
+83,Estuary and Freshwater,Adult,Adult Terminal Migration,Direct Anthropogenic Interactions,Harassment and disturbance,Estuary and Freshwater Adult Terminal Migration
+84,Estuary and Freshwater,Adult,Adult Terminal Migration,Direct Anthropogenic Interactions,Fishing,Estuary and Freshwater Adult Terminal Migration
+85,Estuary and Freshwater,Adult,Adult Terminal Migration,Biological Interactions,Competition,Estuary and Freshwater Adult Terminal Migration
+86,Estuary and Freshwater,Adult,Adult Terminal Migration,Biological Interactions,"Parasites, pathogens, disease, harmful algae",Estuary and Freshwater Adult Terminal Migration
+87,Estuary and Freshwater,Adult,Adult Terminal Migration,Biological Interactions,Predation,Estuary and Freshwater Adult Terminal Migration
+88,Estuary and Freshwater,Adult,Adult Terminal Migration,Biological Interactions,Prey and food,Estuary and Freshwater Adult Terminal Migration
+89,Estuary and Freshwater,Adult,Adult Terminal Migration,Physical Habitat ,Barriers,Estuary and Freshwater Adult Terminal Migration
+90,Estuary and Freshwater,Adult,Adult Terminal Migration,Physical Habitat ,Channel stability and form,Estuary and Freshwater Adult Terminal Migration
+91,Estuary and Freshwater,Adult,Adult Terminal Migration,Physical Habitat ,Aquatic habitat quality and quantity,Estuary and Freshwater Adult Terminal Migration
+92,Estuary and Freshwater,Adult,Adult Terminal Migration,Physical Habitat ,Terrestrial habitat quality and quantity,Estuary and Freshwater Adult Terminal Migration
+93,Estuary and Freshwater,Adult,Adult Terminal Migration,Hydrology & Oceanography,High flows,Estuary and Freshwater Adult Terminal Migration
+94,Estuary and Freshwater,Adult,Adult Terminal Migration,Hydrology & Oceanography,Low flows,Estuary and Freshwater Adult Terminal Migration
+95,Estuary and Freshwater,Adult,Adult Terminal Migration,Hydrology & Oceanography,Physical Oceanography,Estuary and Freshwater Adult Terminal Migration
+96,Estuary and Freshwater,Adult,Adult Terminal Migration,Water Quality,Temperature,Estuary and Freshwater Adult Terminal Migration
+97,Estuary and Freshwater,Adult,Adult Terminal Migration,Water Quality,Dissolved Oxygen,Estuary and Freshwater Adult Terminal Migration
+98,Estuary and Freshwater,Adult,Adult Terminal Migration,Water Quality,"Chemistry (incl. turbidity, pH, salinity)",Estuary and Freshwater Adult Terminal Migration
+99,Estuary and Freshwater,Adult,Adult Terminal Migration,Water Quality,Contaminants and deleterious substances,Estuary and Freshwater Adult Terminal Migration
+100,Freshwater,Adult,Adult Spawning,Direct Anthropogenic Interactions,Harassment and disturbance,Freshwater Adult Spawning
+101,Freshwater,Adult,Adult Spawning,Direct Anthropogenic Interactions,Fishing,Freshwater Adult Spawning
+102,Freshwater,Adult,Adult Spawning,Biological Interactions,Competition,Freshwater Adult Spawning
+103,Freshwater,Adult,Adult Spawning,Biological Interactions,"Parasites, pathogens, disease, harmful algae",Freshwater Adult Spawning
+104,Freshwater,Adult,Adult Spawning,Biological Interactions,Predation,Freshwater Adult Spawning
+105,Freshwater,Adult,Adult Spawning,Biological Interactions,Prey and food,Freshwater Adult Spawning
+106,Freshwater,Adult,Adult Spawning,Physical Habitat ,Barriers,Freshwater Adult Spawning
+107,Freshwater,Adult,Adult Spawning,Physical Habitat ,Channel stability and form,Freshwater Adult Spawning
+108,Freshwater,Adult,Adult Spawning,Physical Habitat ,Aquatic habitat quality and quantity,Freshwater Adult Spawning
+109,Freshwater,Adult,Adult Spawning,Physical Habitat ,Terrestrial habitat quality and quantity,Freshwater Adult Spawning
+110,Freshwater,Adult,Adult Spawning,Hydrology & Oceanography,High flows,Freshwater Adult Spawning
+111,Freshwater,Adult,Adult Spawning,Hydrology & Oceanography,Low flows,Freshwater Adult Spawning
+112,Freshwater,Adult,Adult Spawning,Hydrology & Oceanography,Physical Oceanography,Freshwater Adult Spawning
+113,Freshwater,Adult,Adult Spawning,Water Quality,Temperature,Freshwater Adult Spawning
+114,Freshwater,Adult,Adult Spawning,Water Quality,Dissolved Oxygen,Freshwater Adult Spawning
+115,Freshwater,Adult,Adult Spawning,Water Quality,"Chemistry (incl. turbidity, pH, salinity)",Freshwater Adult Spawning
+116,Freshwater,Adult,Adult Spawning,Water Quality,Contaminants and deleterious substances,Freshwater Adult Spawning
+117,N/A,N/A,Intergenerational,Population,Genotypic effects,Intergenerational
+118,N/A,N/A,Intergenerational,Population,Phenotypic effects,Intergenerational

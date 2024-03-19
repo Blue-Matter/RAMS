@@ -1,3 +1,4 @@
 RAMS_ID,Date,Species,UOA,idUSER,Date_Mod,Note
-TEST1,2024-03-18,Sockeye,Barkley Sound Sockeye,user1,2024-03-18,EXAMPLE
+TEST1,2024-03-18,Sockeye,Barkley Sound Sockeye,user1,2024-03-18,example scores
 TEST2,2024-03-15,Chinook,Fall Cowichan Chinook,user2,2024-03-17,another example
+TEST3,2024-03-15,Chum,An example UOA,user1,2024-03-17,empty; no scores

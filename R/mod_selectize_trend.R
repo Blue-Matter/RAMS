@@ -18,7 +18,7 @@ mod_selectize_ui <- function(id){
 #' selectize Server Functions
 #'
 #' @noRd
-mod_selectize_server <- function(id, label, choices){
+mod_selectize_server <- function(id, label, choices, selected=NULL){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
@@ -27,6 +27,7 @@ mod_selectize_server <- function(id, label, choices){
         div(
           shinyhelper::helper(selectizeInput(ns(id) , with_red_star(label),
                                              choices=choices,
+                                             selected=selected(),
                                              multiple = TRUE,
                                              options = list(maxItems = 1)
           ),
