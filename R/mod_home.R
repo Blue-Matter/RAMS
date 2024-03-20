@@ -134,7 +134,8 @@ load_RAMS_scores <- function(rams_id) {
 
   # calculate scores
   df |> dplyr::group_by(LF_ID) |>
-    mutate(Risk_Score=calc_likelihood(Spatial_Exposure, Temporal_Exposure),
+    mutate(Exposure_Score=calc_likelihood(Spatial_Exposure, Temporal_Exposure),
+           Risk_Score=calc_likelihood(Exposure_Score, Impact),
            Future_Score=calc_future_score(Risk_Score, Future_Trend))
 }
 
@@ -558,8 +559,8 @@ mod_home_server <- function(id, objects, credentials, home_session){
           objects$loaded_RAMS_scores <- load_RAMS_scores( objects$metadata$RAMS_ID)
           objects$Correlated_LFs <- load_Correlated( objects$metadata$RAMS_ID)
         }
-        # Metadata <<- objects$metadata
-        # RAMS_scores <<- objects$RAMS_scores
+        Metadata <<- objects$metadata
+        RAMS_scores <<- objects$RAMS_scores
 
         shinydashboard::updateTabItems(home_session, 'menu_sidebar', 'summary')
       }

@@ -13,7 +13,7 @@ mod_summary_ui <- function(id){
 
     shinydashboard::box(title='Metadata', width=12,
                         collapsible = TRUE,
-        uiOutput(ns('metadata'))
+        uiOutput(ns('metadata')),
     ),
     shinydashboard::box(title='Risk Scores', width=12,
         DT::DTOutput(ns('summary'))
@@ -25,7 +25,7 @@ mod_summary_ui <- function(id){
 #' summary Server Functions
 #'
 #' @noRd
-mod_summary_server <- function(id, objects, home_session){
+mod_summary_server <- function(id, objects){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
@@ -85,25 +85,6 @@ mod_summary_server <- function(id, objects, home_session){
     })
 
 
-
-    # observeEvent(links$link, {
-    #   print('button pressed')
-    #   updateTabsetPanel(home_session, 'menu_sidebar', 'egg_alevin')
-    #   updateTabsetPanel(session, inputId='egg_alevin', selected='Water Quality')
-    # })
-    #
-    #
-    observeEvent(input$egg_alevin, {
-      updateTabsetPanel(home_session, 'menu_sidebar', 'egg_alevin')
-    })
-
-    observeEvent(input$fry_parr, {
-      updateTabsetPanel(home_session, 'menu_sidebar', 'fry_parr')
-    })
-
-
-
-
     make_summary_table <- reactive({
       RAMS_scores <- objects$RAMS_scores
       LF <- dplyr::left_join(RAMS_scores, RAMS::LIMITING_FACTORS, by='LF_ID')
@@ -126,16 +107,68 @@ mod_summary_server <- function(id, objects, home_session){
                     ncol=length(second_columns))
       colnames(mat) <- second_columns
 
-      mat <- data.frame(mat)
+      mat <- data.frame(mat, check.names = FALSE)
       DF <- dplyr::bind_cols(data.frame(Life.Stage.and.Life.History.Phase),
                               mat)
 
       for (i in 1:nrow(LF)){
         row_ind <- match(LF$Life.Stage.and.Life.History.Phase[i], Life.Stage.and.Life.History.Phase)
         col_ind <- match(LF$Limiting.Factor.Subcategory[i], second_columns)
-
         DF[row_ind, col_ind+1] <- score_categories[[LF$Risk_Score[i]]]
       }
+      list(DF=DF, top_columns=top_columns, second_columns=second_columns)
+
+
+    })
+
+    background_color <- function(table, col_name) {
+      # col <- gsub(' ', '.', col_name)
+      # col <- gsub(',', '.', col)
+      # col <- gsub('\\(', '.', col)
+      # col <- gsub('\\)', '.', col)
+      DT::formatStyle(table, col_name,
+                      backgroundColor = DT::styleEqual(score_categories,
+                                                       selectize_colors))
+    }
+
+    observeEvent(input$summary_cell_clicked, {
+      row <- input$summary_cell_clicked$row
+      col <-  input$summary_cell_clicked$col + 1
+      DF <- isolate(make_summary_table())
+      DF <- DF$DF
+
+      if (!is.null(row)) {
+
+
+        RAMS_scores <- objects$RAMS_scores
+        LF <- RAMS::LIMITING_FACTORS
+        thisLF <- LF %>% dplyr::filter(Life.Stage.and.Life.History.Phase==DF[row,1],
+                                        Limiting.Factor.Subcategory==colnames(DF)[col])
+
+        js1 <- paste0('[data-value=\"', thisLF$menuid, '\"]')
+        js2 <- paste0('[data-value=\"', thisLF$Limiting.Factor.Category, '\"]')
+        js3 <- paste0('[data-value=\"', thisLF$Limiting.Factor.Subcategory, '\"]')
+
+        shinyjs::runjs(paste0("$('a", js1, "').tab('show');"))
+        shinyjs::delay(30, {
+          shinyjs::runjs(paste0("$('a", js2, "').tab('show');"))
+          shinyjs::runjs(paste0("$('a", js3, "').tab('show');"))
+          # shinyjs::runjs("$('a[data-value=\"Biological Interactions\"]').tab('show');")
+          # shinyjs::runjs("$('a[data-value=\"#4\"]').tab('show');")
+        }
+        )
+
+
+      }
+
+    })
+
+    output$summary <- DT::renderDT({
+      obj <<- make_summary_table()
+      DF <- obj$DF
+      top_columns <- obj$top_columns
+      second_columns <- obj$second_columns
+
 
       sketch <- htmltools::withTags(
         table(
@@ -176,40 +209,25 @@ mod_summary_server <- function(id, objects, home_session){
         )
       )
 
-      background_color <- function(table, col_name) {
-        col <- gsub(' ', '.', col_name)
-        col <- gsub(',', '.', col)
-        col <- gsub('\\(', '.', col)
-        col <- gsub('\\)', '.', col)
-        DT::formatStyle(table, col,
-                        backgroundColor = DT::styleEqual(score_categories,
-                                                         selectize_colors))
-      }
-
-
       dt <- DT::datatable(DF, escape=FALSE, rownames = FALSE, container=sketch,
-                    colnames = second_columns,
-                    options = list(autoWidth = FALSE, scrollX = TRUE,
-                                   info = FALSE,
-                                   paging = FALSE,
-                                   searching = FALSE,
-                                   ordering=FALSE,
-                                   columnDefs = list(
-                                     list(targets = "_all", className = "dt-center")
-                      )
-                    ))
+                          colnames = second_columns,
+                          options = list(autoWidth = FALSE, scrollX = TRUE,
+                                         info = FALSE,
+                                         paging = FALSE,
+                                         searching = FALSE,
+                                         ordering=FALSE,
+                                         columnDefs = list(
+                                           list(targets = "_all", className = "dt-center")
+                                         )
+                          ),
+                          selection = list(mode = 'single', target = 'cell'))
 
       for( x in second_columns){
         dt <- dt %>% background_color(., x)
       }
 
 
-     dt
-
-    })
-
-    output$summary <- DT::renderDT({
-      make_summary_table()
+      dt
 
     })
 

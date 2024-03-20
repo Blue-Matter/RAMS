@@ -27,7 +27,7 @@ mod_life_stage_tabset_ui <- function(id){
 #'
 #' @noRd
 mod_life_stage_tabset_server <- function(id, life_stage, life_stage_life_history=NULL,
-                                         objects=NULL, home_session=NULL){
+                                         objects=NULL){
 
   LF_df <- get_limiting_factors() %>%
     dplyr::filter(Life.Stage ==life_stage,
@@ -87,6 +87,7 @@ categories_tabs <- function(LF_DF=NULL) {
 sub_catories_tabs <- function(LF_DF=NULL) {
   id <- paste0('LF', LF_DF$LF_ID)
   tabPanel(unique(LF_DF$Limiting.Factor.Subcategory),
+           # value=paste0('#',LF_DF$LF_ID),
            mod_limiting_factor_ui(id)
   )
 
@@ -225,6 +226,7 @@ mod_limiting_factor_server <- function(id, objects) {
       objects$RAMS_scores <- update_RAMS_scores(objects$RAMS_scores, LF(),
                                                 'Risk_Score',
                                                 risk_score())
+
 
     })
 
