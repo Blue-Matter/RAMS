@@ -32,8 +32,8 @@ app_server <- function(input, output, session) {
   credentials <- shinyauthr::loginServer(
     id = "login",
     data = user_base,
-    user_col = user,
-    pwd_col = password_hash,
+    user_col = idUSER,
+    pwd_col = PASSWORD,
     sodium_hashed = TRUE,
     cookie_logins = FALSE,
     sessionid_col = sessionid,
@@ -62,12 +62,18 @@ app_server <- function(input, output, session) {
   output$logininfo <- renderUI({
     shinyauthr::loginUI("login",
                         title='Login',
-                        cookie_expiry = 7
-                        # additional_ui = tagList(
-                        #   HTML(knitr::kable(user_base[, c(1,2,4)],
-                        #                     format = "html",
-                        #                     table.attr = "style='width:60%;'"))
-                        # )
+                        cookie_expiry = 7,
+                        additional_ui = tagList(
+                          br(),
+                          p('Login with your RAMS user name and password.'),
+                          p('Please contact the', a(href='mailto:example@email.com','RAMS App administrator'),
+                            'to register for a RAMs user name and password'),
+                          br(),
+                          p('Development login details:'),
+                          HTML(knitr::kable(data.frame(User='user1', Password='pass1'),
+                                            format = "html",
+                                            table.attr = "style='width:80%;'"))
+                        )
                         )
   })
 
@@ -82,25 +88,25 @@ app_server <- function(input, output, session) {
 
   waitress$inc(10)
   mod_home_server('home', objects, credentials, home_session=session)
-  mod_summary_server("summary", objects)
+  mod_summary_server("summary", objects, home_session)
   mod_table_server("table")
 
   waitress$inc(10)
-  mod_life_stage_tabset_server('egg_alevin', 'Egg / Alevin', 'Freshwater Egg Incubation', objects)
+  mod_life_stage_tabset_server('egg_alevin', 'Egg / Alevin', 'Freshwater Egg Incubation', objects, home_session, icon=icon('egg', class='fa-sm'))
   waitress$inc(10)
-  mod_life_stage_tabset_server('fry_parr', 'Fry / Parr', 'Freshwater Fry Rearing', objects)
+  mod_life_stage_tabset_server('fry_parr', 'Fry / Parr', 'Freshwater Fry Rearing', objects,home_session, icon=icon('fish', class='fa-xs'))
   waitress$inc(10)
-  mod_life_stage_tabset_server('smolt', 'Smolt', 'Estuarine Smolt Migration and Rearing', objects)
+  mod_life_stage_tabset_server('smolt', 'Smolt', 'Estuarine Smolt Migration and Rearing', objects, home_session, icon=icon('fish', class='fa-sm'))
   waitress$inc(10)
-  mod_life_stage_tabset_server('juvenile', 'Juvenile', 'Marine Nearshore Juvenile Rearing and Migration', objects)
+  mod_life_stage_tabset_server('juvenile', 'Juvenile', 'Marine Nearshore Juvenile Rearing and Migration', objects, home_session, icon=icon('fish', class='fa-xs'))
   waitress$inc(10)
-  mod_life_stage_tabset_server('immature', 'Immature', 'Marine Pelagic Immature Rearing', objects)
+  mod_life_stage_tabset_server('immature', 'Immature', 'Marine Pelagic Immature Rearing', objects, home_session,icon=icon('fish'))
   waitress$inc(10)
-  mod_life_stage_tabset_server('return_migration', 'Adult', 'Marine Adult Return Migration', objects)
+  mod_life_stage_tabset_server('return_migration', 'Adult', 'Marine Adult Return Migration', objects, home_session, icon=icon('fish', class='fa-lg'))
   waitress$inc(10)
-  mod_life_stage_tabset_server('terminal_migration', 'Adult', 'Estuary and Freshwater Adult Terminal Migration', objects)
+  mod_life_stage_tabset_server('terminal_migration', 'Adult', 'Estuary and Freshwater Adult Terminal Migration', objects, home_session, icon=icon('fish', class='fa-lg'))
   waitress$inc(10)
-  mod_life_stage_tabset_server('spawning', 'Adult', 'Freshwater Adult Spawning', objects)
+  mod_life_stage_tabset_server('spawning', 'Adult', 'Freshwater Adult Spawning', objects, home_session,icon=icon('fish', class='fa-lg'))
 
   waitress$close()
 

@@ -10,29 +10,40 @@
 mod_summary_ui <- function(id){
   ns <- NS(id)
   tagList(
-
-    shinydashboard::box(title='Metadata', width=12,
-                        collapsible = TRUE,
-        uiOutput(ns('metadata')),
-    ),
-    shinydashboard::box(title='Risk Scores', width=12,
-        DT::DTOutput(ns('summary'))
+    shinydashboard::box(title=h3('Summary'), width=12,
+                        column(12,
+                               uiOutput(ns('metadata'))
+                        ),
+                        shinydashboard::box(title=h4('Risk Score Summary'), width=10,
+                                            solidHeader = TRUE, status='primary',
+                                            h4('This table shows the Risk Score for the Limiting Factors. Click on a cell to go to the RAMS score page.'),
+                                            br(),
+                                            DT::DTOutput(ns('summary'))
+                        ),
+                        shinydashboard::box(title=h4('Links'), width=2,
+                                            solidHeader = TRUE, status='primary',
+                                            collapsible = FALSE,
+                                            mod_links_ui(ns(id))
+                        ),
     )
-
   )
 }
+
+
+
+
 
 #' summary Server Functions
 #'
 #' @noRd
-mod_summary_server <- function(id, objects){
+mod_summary_server <- function(id, objects, home_session){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
+    mod_links_server(id, home_session)
     output$metadata <- renderUI({
       tagList(
-        hr(),
-        column(4,
+        column(3,
                fluidRow(
                  column(6,strong('Species:')),
                  column(6,objects$metadata$Species)
@@ -52,9 +63,10 @@ mod_summary_server <- function(id, objects){
                fluidRow(
                  column(6,strong('Watershed(s) or Population(s):')),
                  column(6,objects$metadata$wss)
-               )
+               ),
+               br()
         ),
-        column(4,
+        column(3,
                fluidRow(
                  column(6,strong('Creator:')),
                  column(6,objects$metadata$Name)
@@ -70,17 +82,9 @@ mod_summary_server <- function(id, objects){
                fluidRow(
                  column(6,strong('Notes:')),
                  column(6,objects$metadata$Note)
-               )
-        ),
-        column(4,
-               fluidRow(
-                 h3('Links'),
-                 h4('Life Stages:'),
-                 actionButton(ns('egg_alevin'), 'Egg/Alevin'),
-                 actionButton(ns('fry_parr'), 'Fry/Parr')
-               )
-        ),
-        hr()
+               ),
+               br()
+        )
       )
     })
 
@@ -153,8 +157,6 @@ mod_summary_server <- function(id, objects){
         shinyjs::delay(30, {
           shinyjs::runjs(paste0("$('a", js2, "').tab('show');"))
           shinyjs::runjs(paste0("$('a", js3, "').tab('show');"))
-          # shinyjs::runjs("$('a[data-value=\"Biological Interactions\"]').tab('show');")
-          # shinyjs::runjs("$('a[data-value=\"#4\"]').tab('show');")
         }
         )
 

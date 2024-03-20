@@ -20,14 +20,9 @@
 # How many days should sessions last?
 cookie_expiry <- 7
 
-user_base <- tibble::tibble(
-  user = c("user1", "user2"),
-  password = c("pass1", "pass2"),
-  password_hash = sapply(c("pass1", "pass2"), sodium::password_store),
-  permissions = c("admin", "facilitator"),
-  name = c("User One", "User Two")
-)
 
+
+user_base <- USERS
 
 
 #' The application User-Interface

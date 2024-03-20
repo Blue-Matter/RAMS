@@ -225,20 +225,14 @@ mod_home_ui <- function(id){
   ns <- NS(id)
 
   tagList(
-    shinydashboard::box(width=12, status='primary',
-                        title=h3('Welcome to the Risk Assessment Method for Salmon App'),
+    shinydashboard::box(width=12, status='primary',solidHeader = FALSE,
+                        title=h3('Welcome to the Risk Assessment Method for Salmon (RAMS) App'),
+
                         shinydashboard::box(solidHeader = TRUE, status='primary', width=12,
                                             title='RAMS Database',
-                                            column(9,
-                                                   h4('Load an existing RAMS Process by clicking the',  icon('eye'), 'button',
-                                                      'on a row in the table below')
-                                            ),
-                                            column(3,
-                                                   uiOutput(ns('new_button')),
-                                                   style='float:right'),
-
-                                            br(),
-                                            br(),
+                                            h4('Load a RAMS process by clicking the',  icon('eye'), 'button in the RAMS Database or', actionLink(ns('openlogin'), 'Login'),
+                                               'to create a new RAMS process.'),
+                                            p(uiOutput(ns('new_button'))),
                                             DT::dataTableOutput(ns('meta_data_table'))
 
                         )
@@ -247,6 +241,8 @@ mod_home_ui <- function(id){
   )
 }
 
+
+
 #' home Server Functions
 #'
 #' @noRd
@@ -254,20 +250,22 @@ mod_home_server <- function(id, objects, credentials, home_session){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
-    output$new_button <- renderUI({
-      tagList(shinyWidgets::actionBttn(ns('create_new'), 'Create New RAMS',
-                                       style = "jelly",
-                                       color='primary',
-                                       size='sm'))
+    observeEvent(input$openlogin, {
+      shinydashboardPlus::updateControlbar("controlbar", session=home_session)
+    })
 
-      # if (credentials()$user_auth) {
-      #   tagList(shinyWidgets::actionBttn(ns('create_new'), 'Create New RAMS',
-      #                                    style = "jelly",
-      #                                    color='primary',
-      #                                    size='sm'))
-      # } else {
-      #   NULL
-      # }
+    output$new_button <- renderUI({
+      if (credentials()$user_auth) {
+        tagList(
+         actionButton(ns('create_new'), 'Create a New RAMS', icon=icon('plus'))
+        )
+
+      } else {
+        tagList(br())
+      }
+      # tagList(
+      #   actionButton(ns('create_new'), 'Create a New RAMS', icon=icon('plus'))
+      # )
     })
 
     output$meta_data_table <- DT::renderDataTable({
@@ -279,6 +277,11 @@ mod_home_server <- function(id, objects, credentials, home_session){
     output$new_dialog <- renderUI({
       tagList(
         fluidPage(
+          fluidRow(
+            column(12,
+                   h3('NOTE: this feature is not complete. Nothing changes after pressing `Save`')
+                   )
+          ),
           fluidRow(
             column(3,
                    dateInput(ns('date'), 'Date',
@@ -487,22 +490,30 @@ mod_home_server <- function(id, objects, credentials, home_session){
       if (check_metadata(Date_UOA_Species_List, Rel_Pol_List, CU_List, WS_List)) {
         shiny::removeModal()
 
-        metadata <- list(id=id_rams,
-                         Date=input$date,
-                         UOA=input$uoa,
-                         Rel_Pol=input$rel_pol,
-                         Species=selected_species(),
-                         CUs=selected_CUs(),
-                         WS=selected_WSs)
-
-        objects$metadata <- metadata
-
-
-        # display sidebar and expand
         objects$loaded <- TRUE
+        metadata <- list(RAMS_ID=id_rams,
+                         Date=input$date,
+                         Species=selected_species(),
+                         UOA=input$uoa,
+                         idUSER=objects$info$idUSER,
+                         Date_Mod=input$date,
+                         Note=NULL)
 
-        # dashboardSidebar
+                         # rel_pol=input$rel_pol,
+                         # CUs=selected_CUs(),
+                         # WS=selected_WSs)
+        # Metadata <<- objects$metadata
+        # RAMS_scores <<- objects$RAMS_scores
 
+        # shinydashboard::updateTabItems(home_session, 'menu_sidebar', 'summary')
+
+        # objects$metadata <- metadata
+        # object$RAMS_scores <- create_new_RAMS(id_rams)
+
+        # update METADATA object
+        # create CUs and WSs object and add to masters
+        # push METADATA to DB
+        # push new RAMS scores object to DB
 
       }
 
@@ -536,8 +547,6 @@ mod_home_server <- function(id, objects, credentials, home_session){
 #       OUT <<- Metadata
 #       Metadata
 #     })
-
-
 
 
 

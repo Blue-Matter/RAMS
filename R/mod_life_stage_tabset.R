@@ -27,7 +27,7 @@ mod_life_stage_tabset_ui <- function(id){
 #'
 #' @noRd
 mod_life_stage_tabset_server <- function(id, life_stage, life_stage_life_history=NULL,
-                                         objects=NULL){
+                                         objects=NULL, home_session, icon=NULL){
 
   LF_df <- get_limiting_factors() %>%
     dplyr::filter(Life.Stage ==life_stage,
@@ -45,30 +45,51 @@ mod_life_stage_tabset_server <- function(id, life_stage, life_stage_life_history
                                  dplyr::filter(Limiting.Factor.Category==LF_categories[i]))
   }
 
-  moduleServer(id, function(input, output, session){
-    ns <- session$ns
-
-    output$life_stage_tabset <- renderUI({
-      tagList(
-        shinydashboard::box(width=12, title=h3(paste('Life Stage: ', life_stage)),
-            h4(paste('Ecosystem Unit: ', Ecosystem.Unit)),
-            h4(paste('Life History Phase: ', Life.History.Phase)),
-            br(),
-            do.call(tabsetPanel, c(ll, list(id=id)))
-        )
-      )
-
-    })
-    # outputOptions(output, "life_stage_tabset", suspendWhenHidden = FALSE)
-
-
-
-
-  })
-
   lf_ids <- LF_df$LF_ID
   IDs <- paste0('LF', lf_ids)
   lapply(IDs, mod_limiting_factor_server, objects=objects)
+
+  LFtabs <- do.call(tabsetPanel, c(ll, list(id=id)))
+
+  mod_links_server(id, home_session)
+
+  moduleServer(id, function(input, output, session){
+    ns <- session$ns
+
+
+    output$life_stage_tabset <- renderUI({
+      tagList(
+        shinydashboard::box(width=12, title=h3(strong('Life Stage:'), icon, life_stage),
+                            column(12,
+                                   h4(strong("Unit of Assessment:"), objects$metadata$UOA),
+                                   h4(strong('Ecosystem Unit:'), Ecosystem.Unit),
+                                   h4(strong('Life History Phase:'), Life.History.Phase)
+                                   ),
+
+                            # shinydashboard::box(title=h4( objects$metadata$UOA), width=6,
+                            #                     solidHeader = TRUE, status='primary',
+                            #                     collapsible = TRUE,
+                            #                     h5(strong("Unit of Assessment:"), objects$metadata$UOA),
+                            #                     h5(strong('Ecosystem Unit:'), Ecosystem.Unit),
+                            #                     h5(strong('Life History Phase:'), Life.History.Phase)
+                            # ),
+                            shinydashboard::box(width=10,
+                                                title=h4('Limiting Factor Scores'),
+                                                solidHeader = TRUE, status='primary',
+                                                LFtabs),
+                            shinydashboard::box(title=h4('Links'), width=2,
+                                                solidHeader = TRUE, status='primary',
+                                                collapsible = FALSE,
+                                                mod_links_ui(id)
+                            )
+
+        )
+      )
+
+
+    })
+    # outputOptions(output, "life_stage_tabset", suspendWhenHidden = FALSE)
+  })
 
 }
 
