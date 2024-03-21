@@ -1,50 +1,36 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# RAMS
+# The RAMS App
 
 <!-- badges: start -->
+
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The goal of RAMS is to …
+The RAMS App is a Shiny application designed for faciliating the Risk
+Assessment Methods for Salmon (RAMS) process.
 
-## Installation
+The App can be run locally on a machine with the R software installed. A
+live online version is available at
+[RAMSalmon.com](https://ramsalmon.com).
 
-You can install the development version of RAMS like so:
+The RAMS App is still in development.
+
+## Local Version
+
+To run the RAMS app locally, you need to first install the RAMS package
+from GitHub:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+# install.packages('remotes')
+remotes::install_github('blue-matter/RAMS')
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
+Then load the library and run RAMS:
 
 ``` r
 library(RAMS)
-## basic example code
+RAMS()
 ```
-
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
-
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
