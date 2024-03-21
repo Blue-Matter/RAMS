@@ -9,7 +9,7 @@ library(dplyr)
 #' @noRd
 calc_likelihood <- function(spatial_scale, temporal_scale) {
   if (!is.null(spatial_scale) & !is.null(temporal_scale)) {
-    val <- exposure_matrix %>%
+    val <- RAMS::exposure_matrix %>%
       dplyr::filter(Spatial==spatial_scale, Temporal==temporal_scale) %>%
       dplyr::pull(Exposure)
   } else {
@@ -28,7 +28,7 @@ calc_likelihood <- function(spatial_scale, temporal_scale) {
 #' @noRd
 calc_future_score <- function(risk_score, future_trend) {
   if (!is.null(risk_score) & !is.null(future_trend)) {
-    val <- future_risk_matrix %>%
+    val <- RAMS::future_risk_matrix %>%
       dplyr::filter(Risk==risk_score, Future_Trend==future_trend) %>%
       dplyr::pull(Future_Risk)
   } else {
