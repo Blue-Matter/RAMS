@@ -1,3 +1,3 @@
-"idUSER","PASSWORD","PERMISSIONS","FIRST_NAME","LAST_NAME","EMAIL","DATE_CREATED"
-"user1","$7$C6..../....ugvZxtGKModM4Ww628jbKb/zNS7.GMAfqhmgmBi58j/$f58Oy3PdebXPBj4DOs7CVeu8a7TxbO6.FVVkzPHGh7/","admin","John","Dorey","j.dory@email.com",2024-03-20 12:15:26
-"user2","$7$C6..../....xgsEmedGp76PcVlDqJmAVjN1asIZvfsqlfMbSf5WmVC$wlSjIeg2ulGGviaVpnvNFIlpyRscBp0lDMxS687Ggz0","facilitator","Bob","Down","b.down@email.com",2024-03-20 12:15:26
+idUSER,PASSWORD,PERMISSIONS,FIRST_NAME,LAST_NAME,EMAIL,DATE_CREATED
+user1,$7$C6..../....ugvZxtGKModM4Ww628jbKb/zNS7.GMAfqhmgmBi58j/$f58Oy3PdebXPBj4DOs7CVeu8a7TxbO6.FVVkzPHGh7/,Admin,John,Dorey,j.dory@email.com,2024-03-20 12:15
+user2,$7$C6..../....xgsEmedGp76PcVlDqJmAVjN1asIZvfsqlfMbSf5WmVC$wlSjIeg2ulGGviaVpnvNFIlpyRscBp0lDMxS687Ggz0,Facilitator,Bob,Down,b.down@email.com,2024-03-20 12:15

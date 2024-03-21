@@ -18,11 +18,11 @@
 #   )
 
 # How many days should sessions last?
-cookie_expiry <- 7
+# cookie_expiry <- 7
 
 
 
-user_base <- USERS
+
 
 
 #' The application User-Interface
@@ -43,8 +43,14 @@ app_ui <- function(request) {
                                           tags$li(
                                             class = "dropdown",
                                             style = "padding: 8px;",
+                                            uiOutput('user')
+                                          ),
+                                          tags$li(
+                                            class = "dropdown",
+                                            style = "padding: 8px;",
                                             shinyauthr::logoutUI("logout")
-                                          )),
+                                          )
+      ),
       controlbar=shinydashboardPlus::dashboardControlbar(id='controlbar',
                                                          width=350,
                                                          shinydashboardPlus::controlbarMenu(

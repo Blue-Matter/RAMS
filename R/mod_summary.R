@@ -43,7 +43,7 @@ mod_summary_server <- function(id, objects, home_session){
     mod_links_server(id, home_session)
     output$metadata <- renderUI({
       tagList(
-        column(3,
+        column(6,
                fluidRow(
                  column(6,strong('Species:')),
                  column(6,objects$metadata$Species)
@@ -119,6 +119,7 @@ mod_summary_server <- function(id, objects, home_session){
         row_ind <- match(LF$Life.Stage.and.Life.History.Phase[i], Life.Stage.and.Life.History.Phase)
         col_ind <- match(LF$Limiting.Factor.Subcategory[i], second_columns)
         DF[row_ind, col_ind+1] <- score_categories[[LF$Risk_Score[i]]]
+
       }
       list(DF=DF, top_columns=top_columns, second_columns=second_columns)
 
@@ -126,10 +127,6 @@ mod_summary_server <- function(id, objects, home_session){
     })
 
     background_color <- function(table, col_name) {
-      # col <- gsub(' ', '.', col_name)
-      # col <- gsub(',', '.', col)
-      # col <- gsub('\\(', '.', col)
-      # col <- gsub('\\)', '.', col)
       DT::formatStyle(table, col_name,
                       backgroundColor = DT::styleEqual(score_categories,
                                                        selectize_colors))
@@ -142,8 +139,6 @@ mod_summary_server <- function(id, objects, home_session){
       DF <- DF$DF
 
       if (!is.null(row)) {
-
-
         RAMS_scores <- objects$RAMS_scores
         LF <- RAMS::LIMITING_FACTORS
         thisLF <- LF %>% dplyr::filter(Life.Stage.and.Life.History.Phase==DF[row,1],
@@ -166,7 +161,7 @@ mod_summary_server <- function(id, objects, home_session){
     })
 
     output$summary <- DT::renderDT({
-      obj <<- make_summary_table()
+      obj <- make_summary_table()
       DF <- obj$DF
       top_columns <- obj$top_columns
       second_columns <- obj$second_columns
@@ -213,7 +208,9 @@ mod_summary_server <- function(id, objects, home_session){
 
       dt <- DT::datatable(DF, escape=FALSE, rownames = FALSE, container=sketch,
                           colnames = second_columns,
+                          extensions = "FixedColumns",
                           options = list(autoWidth = FALSE, scrollX = TRUE,
+                                         fixedColumns = list(leftColumns = 1),
                                          info = FALSE,
                                          paging = FALSE,
                                          searching = FALSE,

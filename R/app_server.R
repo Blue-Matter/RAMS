@@ -1,6 +1,5 @@
 
 
-
 selectize_colors <- c('#dbdbdb', '#00af50', '#ffcc00', '#ff742e', '#ff0000')
 
 select_color_css <- function(parent_id, id, input_val, selectize_colors, class='selectize-input', style=NULL) {
@@ -31,7 +30,7 @@ app_server <- function(input, output, session) {
 
   credentials <- shinyauthr::loginServer(
     id = "login",
-    data = user_base,
+    data = RAMS::USERS,
     user_col = idUSER,
     pwd_col = PASSWORD,
     sodium_hashed = TRUE,
@@ -59,6 +58,16 @@ app_server <- function(input, output, session) {
     active = reactive(credentials()$user_auth)
   )
 
+  output$user <- renderUI({
+    if (credentials()$user_auth) {
+      tagList(
+        h5(objects$info$PERMISSIONS, style="color: #fff;")
+      )
+    } else {
+      NULL
+    }
+  })
+
   output$logininfo <- renderUI({
     shinyauthr::loginUI("login",
                         title='Login',
@@ -70,11 +79,16 @@ app_server <- function(input, output, session) {
                             'to register for a RAMs user name and password'),
                           br(),
                           p('Development login details:'),
-                          HTML(knitr::kable(data.frame(User='user1', Password='pass1'),
+                          HTML(knitr::kable(data.frame(User=USERS$idUSER,
+                                                       Password=c('pass1', 'pass2'),
+                                                       Role=USERS$PERMISSIONS),
                                             format = "html",
-                                            table.attr = "style='width:80%;'"))
+                                            table.attr = "style='width:100%;'")
+                          )
                         )
-                        )
+
+
+    )
   })
 
   shinyjs::delay(30,
@@ -89,7 +103,7 @@ app_server <- function(input, output, session) {
   waitress$inc(10)
   mod_home_server('home', objects, credentials, home_session=session)
   mod_summary_server("summary", objects, home_session)
-  mod_table_server("table")
+  mod_table_server("table", objects, home_session)
 
   waitress$inc(10)
   mod_life_stage_tabset_server('egg_alevin', 'Egg / Alevin', 'Freshwater Egg Incubation', objects, home_session, icon=icon('egg', class='fa-sm'))

@@ -56,7 +56,6 @@ mod_life_stage_tabset_server <- function(id, life_stage, life_stage_life_history
   moduleServer(id, function(input, output, session){
     ns <- session$ns
 
-
     output$life_stage_tabset <- renderUI({
       tagList(
         shinydashboard::box(width=12, title=h3(strong('Life Stage:'), icon, life_stage),
@@ -65,14 +64,6 @@ mod_life_stage_tabset_server <- function(id, life_stage, life_stage_life_history
                                    h4(strong('Ecosystem Unit:'), Ecosystem.Unit),
                                    h4(strong('Life History Phase:'), Life.History.Phase)
                                    ),
-
-                            # shinydashboard::box(title=h4( objects$metadata$UOA), width=6,
-                            #                     solidHeader = TRUE, status='primary',
-                            #                     collapsible = TRUE,
-                            #                     h5(strong("Unit of Assessment:"), objects$metadata$UOA),
-                            #                     h5(strong('Ecosystem Unit:'), Ecosystem.Unit),
-                            #                     h5(strong('Life History Phase:'), Life.History.Phase)
-                            # ),
                             shinydashboard::box(width=10,
                                                 title=h4('Limiting Factor Scores'),
                                                 solidHeader = TRUE, status='primary',
@@ -88,7 +79,7 @@ mod_life_stage_tabset_server <- function(id, life_stage, life_stage_life_history
 
 
     })
-    # outputOptions(output, "life_stage_tabset", suspendWhenHidden = FALSE)
+    outputOptions(output, "life_stage_tabset", suspendWhenHidden = FALSE)
   })
 
 }
@@ -124,9 +115,9 @@ mod_limiting_factor_ui <- function(id) {
 
 
 mod_limiting_factor_server <- function(id, objects) {
+
   moduleServer(id, function(input, output, session){
     ns <- session$ns
-
     LF <- reactive({
       as.numeric(gsub('LF', '', id))
     })
@@ -178,8 +169,6 @@ mod_limiting_factor_server <- function(id, objects) {
     })
 
     get_notes <- reactive({
-
-      print('running get_scores from within get_notes')
       get_scores('Notes', FALSE)
     })
 
@@ -244,6 +233,8 @@ mod_limiting_factor_server <- function(id, objects) {
     risk_score <- reactive(calc_likelihood(exposure_score(), impact()))
 
     observeEvent(risk_score(), ignoreInit = TRUE, {
+      # print('Risk Score in Tabset')
+      # print(risk_score())
       objects$RAMS_scores <- update_RAMS_scores(objects$RAMS_scores, LF(),
                                                 'Risk_Score',
                                                 risk_score())
@@ -393,8 +384,9 @@ mod_limiting_factor_server <- function(id, objects) {
                   width='100%', height='200px'),
         size='l',
         footer = tagList(
-          actionButton(ns("save_notes"), "Save", icon=icon('save')),
-          modalButton("Cancel")
+          modalButton("Cancel"),
+          actionButton(ns("save_notes"), "Save", icon=icon('save'))
+
 
         )
       )

@@ -76,8 +76,6 @@ mod_selectize_colored_server <- function(id, parent_id, label, choices_list, sel
     #
     #   }
     # })
-
-
     reactive(input[[id]])
 
   })
