@@ -123,11 +123,6 @@ app_server <- function(input, output, session) {
   mod_life_stage_tabset_server('spawning', 'Adult', 'Freshwater Adult Spawning', objects, home_session,icon=icon('fish', class='fa-lg'))
 
   waitress$close()
-
-
-
-  # observeEvent(objects$loaded, ignoreInit=TRUE,
-  #              shinydashboardPlus::updateSidebar('sidebar'))
 }
 
 

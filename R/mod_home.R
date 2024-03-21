@@ -80,6 +80,8 @@ create_btns <- function(x) {
                        '<div class = "btn-group">
                            <button class="btn btn-default action-button btn-primary action_button" id="load_',
                            .x, '" type="button" onclick=get_id(this.id)><i class="fas fa-eye"></i></button>
+                           <button class="btn btn-default action-button btn-info action_button shiny-download-link" id="download_',
+                          .x, '" type="button" onclick=get_id(this.id)><i class="fas fa-download"></i></button>
                        </div>'
                      ))
 
@@ -235,7 +237,8 @@ mod_home_ui <- function(id){
                                             p(uiOutput(ns('new_button'))),
                                             DT::dataTableOutput(ns('meta_data_table'))
 
-                        )
+                        ),
+                        downloadButton(ns("downloadData"),label = "Fake", style = "visibility: hidden;")
     )
 
   )
@@ -268,6 +271,10 @@ mod_home_server <- function(id, objects, credentials, home_session){
       # )
     })
 
+    make_user <- function() {
+      # temporary function to make sure sodium package is installed
+      sodium::password_store('password')
+    }
     output$meta_data_table <- DT::renderDataTable({
       make_meta_data_table()
 
@@ -549,6 +556,7 @@ mod_home_server <- function(id, objects, credentials, home_session){
 #     })
 
 
+    download_data <- reactiveValues()
 
     shiny::observeEvent(ns(input$current_id), {
 
@@ -567,23 +575,66 @@ mod_home_server <- function(id, objects, credentials, home_session){
           objects$RAMS_scores <- load_RAMS_scores( objects$metadata$RAMS_ID)
           objects$loaded_RAMS_scores <- load_RAMS_scores( objects$metadata$RAMS_ID)
           objects$Correlated_LFs <- load_Correlated( objects$metadata$RAMS_ID)
+
+          Metadata <<- objects$metadata
+          RAMS_scores <<- objects$RAMS_scores
+
+          shinydashboard::updateTabItems(home_session, 'menu_sidebar', 'summary')
+
         }
-        Metadata <<- objects$metadata
-        RAMS_scores <<- objects$RAMS_scores
+        if (btn_type == 'download') {
+          download_data$metadata <- load_meta_data()[selected_row,]
+          download_data$RAMS_scores <- load_RAMS_scores(download_data$metadata$RAMS_ID)
+          download_data$loaded_RAMS_scores <- load_RAMS_scores(download_data$metadata$RAMS_ID)
+          download_data$Correlated_LFs <- load_Correlated(download_data$metadata$RAMS_ID)
+          make_download_data()
+          download_file_name()
+          shinyjs::click("downloadData")
+        }
 
-        shinydashboard::updateTabItems(home_session, 'menu_sidebar', 'summary')
       }
-
-
     })
+
+    download_file_name <- reactive({
+      download_data$file <- paste0(paste(download_data$metadata$UOA,
+                   download_data$metadata$Date, sep=" "),
+             '.xlsx')
+    })
+
+    make_download_data <- reactive({
+      df_list <- list()
+
+      metadata_df <- dplyr::left_join(download_data$metadata, USERS, by='idUSER') %>%
+        dplyr::select(-RAMS_ID, -idUSER, -PASSWORD,
+                      -PERMISSIONS, -DATE_CREATED)
+
+      df_list$Metadata <- metadata_df
+
+      df_list$RAMS_scores <- download_data$RAMS_scores %>%
+        dplyr::select(-RAMS_ID)
+
+      df_list$Correlated_LFs <- download_data$Correlated_LFs %>%
+        dplyr::select(-RAMS_ID)
+      download_data$data <- df_list
+    })
+
+
+    output$downloadData <- downloadHandler(
+      filename = function() {
+        download_data$file
+      },
+      content = function(file) {
+        print(class(download_data$data))
+        OUT <<- download_data$data
+        # writexl::write_xlsx(OUT, 'temp')
+        # lapply(OUT, class)
+        writexl::write_xlsx(download_data$data, file)
+      })
+
+
 
   })
 
 
 }
 
-## To be copied in the UI
-# mod_home_ui("home_1")
-
-## To be copied in the server
-# mod_home_server("home_1")

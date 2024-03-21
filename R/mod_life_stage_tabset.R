@@ -276,7 +276,11 @@ mod_limiting_factor_server <- function(id, objects) {
 
     future_risk_score <- reactive(calc_future_score(risk_score(), future_trend()))
 
-
+    observeEvent(future_risk_score(), ignoreInit = TRUE, {
+      objects$RAMS_scores <- update_RAMS_scores(objects$RAMS_scores, LF(),
+                                                'Future Risk',
+                                                future_risk_score())
+    })
 
     mod_score_gauge_server("future_category", 'Future Risk Score',
                            score_categories,

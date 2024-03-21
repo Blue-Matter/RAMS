@@ -13,6 +13,7 @@ Imports:
     DT,
     golem (>= 0.4.1),
     htmltools,
+    knitr,
     lubridate,
     plotly,
     purrr,
@@ -26,7 +27,8 @@ Imports:
     shinyWidgets,
     sodium,
     tibble,
-    waiter
+    waiter,
+    writexl
 Suggests: 
     spelling,
     testthat (>= 3.0.0)

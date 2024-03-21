@@ -13,43 +13,30 @@ knitr::opts_chunk$set(
 )
 ```
 
-# RAMS
+# The RAMS App
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
-The goal of RAMS is to ...
+The RAMS App is a Shiny application designed for faciliating the Risk Assessment Methods for Salmon (RAMS) process.
 
-## Installation
+The App can be run locally on a machine with the R software installed. A live online version is available at [RAMSalmon.com](https://ramsalmon.com).
 
-You can install the development version of RAMS like so:
+The RAMS App is still in development.
 
-``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+## Local Version
+
+To run the RAMS app locally, you need to first install the RAMS package from GitHub:
+
+```{r, eval=FALSE}
+# install.packages('remotes')
+remotes::install_github('blue-matter/RAMS')
 ```
 
-## Example
+Then load the library and run RAMS:
 
-This is a basic example which shows you how to solve a common problem:
-
-```{r example}
+```{r, eval=FALSE}
 library(RAMS)
-## basic example code
+RAMS()
 ```
-
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
-
-```{r cars}
-summary(cars)
-```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
