@@ -1,6 +1,6 @@
 Package: RAMS
 Title: Risk Assessment Method for Salmon (RAMS)
-Version: 0.0.0.9003
+Version: 0.0.0.9004
 Authors@R: 
     person("Adrian", "Hordyk", , "adrian@bluematterscience.com", role = c("cre", "aut"))
 Description: PKG_DESC.
