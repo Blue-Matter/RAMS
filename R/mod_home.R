@@ -102,25 +102,25 @@ create_btns <- function(x) {
 
 load_meta_data <- function() {
 
-  rel_pol <- REL_POL |> dplyr::group_by(RAMS_ID) |>
+  rel_pol <- RAMS::REL_POL |> dplyr::group_by(RAMS_ID) |>
     dplyr::mutate(rel_pol=paste(Rel_Pol, collapse=', ')) |>
     dplyr::distinct(RAMS_ID, rel_pol)
 
-  cus <- CUs |> dplyr::group_by(RAMS_ID) |>
+  cus <- RAMS::CUs |> dplyr::group_by(RAMS_ID) |>
     dplyr::mutate(cus=paste(CU, collapse=', ')) |>
     dplyr::distinct(RAMS_ID, cus)
 
-  wss <- WSs |> dplyr::group_by(RAMS_ID) |>
+  wss <- RAMS::WSs |> dplyr::group_by(RAMS_ID) |>
     dplyr::mutate(wss=paste(WS, collapse=', ')) |>
     dplyr::distinct(RAMS_ID, wss)
 
-  df <- METADATA |>
+  df <- RAMS::METADATA |>
     dplyr::left_join(rel_pol, by='RAMS_ID') |>
     dplyr::left_join(cus, by='RAMS_ID') |>
     dplyr::left_join(wss, by='RAMS_ID')
 
   # add user
-  users <- USERS |> dplyr::mutate(Name=paste(LAST_NAME, FIRST_NAME, sep=', ')) |>
+  users <- RAMS::USERS |> dplyr::mutate(Name=paste(LAST_NAME, FIRST_NAME, sep=', ')) |>
     dplyr::select(idUSER, Name)
   df <- dplyr::left_join(df, users, by='idUSER')
 
@@ -132,17 +132,17 @@ load_meta_data <- function() {
 }
 
 load_RAMS_scores <- function(rams_id) {
-  df <- LF_DB |> dplyr::filter(RAMS_ID==rams_id)
+  df <- RAMS::LF_DB |> dplyr::filter(RAMS_ID==rams_id)
 
   # calculate scores
   df |> dplyr::group_by(LF_ID) |>
-    mutate(Exposure_Score=calc_likelihood(Spatial_Exposure, Temporal_Exposure),
+    dplyr::mutate(Exposure_Score=calc_likelihood(Spatial_Exposure, Temporal_Exposure),
            Risk_Score=calc_likelihood(Exposure_Score, Impact),
            Future_Score=calc_future_score(Risk_Score, Future_Trend))
 }
 
 load_Correlated <- function(rams_id) {
-  CORRELATED_LFs  |> dplyr::filter(RAMS_ID==rams_id)
+  RAMS::CORRELATED_LFs  |> dplyr::filter(RAMS_ID==rams_id)
 }
 
 make_meta_data_table <- function() {
@@ -624,10 +624,6 @@ mod_home_server <- function(id, objects, credentials, home_session){
         download_data$file
       },
       content = function(file) {
-        print(class(download_data$data))
-        OUT <<- download_data$data
-        # writexl::write_xlsx(OUT, 'temp')
-        # lapply(OUT, class)
         writexl::write_xlsx(download_data$data, file)
       })
 

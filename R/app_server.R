@@ -79,9 +79,9 @@ app_server <- function(input, output, session) {
                             'to register for a RAMs user name and password'),
                           br(),
                           p('Development login details:'),
-                          HTML(knitr::kable(data.frame(User=USERS$idUSER,
+                          HTML(knitr::kable(data.frame(User=RAMS::USERS$idUSER,
                                                        Password=c('pass1', 'pass2'),
-                                                       Role=USERS$PERMISSIONS),
+                                                       Role=RAMS::USERS$PERMISSIONS),
                                             format = "html",
                                             table.attr = "style='width:100%;'")
                           )
