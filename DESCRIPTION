@@ -5,12 +5,17 @@ Authors@R:
     person("Adrian", "Hordyk", , "adrian@bluematterscience.com", role = c("cre", "aut"))
 Description: PKG_DESC.
 License: MIT + file LICENSE
+Depends: 
+    R (>= 2.10)
 Imports: 
     config (>= 0.3.2),
     dplyr,
     DT,
-    flexdashboard,
     golem (>= 0.4.1),
+    htmltools,
+    knitr,
+    lubridate,
+    plotly,
     purrr,
     shiny (>= 1.8.0),
     shinyalert,
@@ -22,7 +27,8 @@ Imports:
     shinyWidgets,
     sodium,
     tibble,
-    waiter
+    waiter,
+    writexl
 Suggests: 
     spelling,
     testthat (>= 3.0.0)

@@ -29,7 +29,9 @@ golem::add_module(name = "life_stage_tabset")
 golem::add_module(name = "sidebar")
 golem::add_module(name = "new_dialog")
 golem::add_module(name = "add_participants")
-
+golem::add_module(name = "summary")
+golem::add_module(name = "table")
+golem::add_module(name = "links")
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*

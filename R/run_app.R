@@ -26,3 +26,11 @@ run_app <- function(
     golem_opts = list(...)
   )
 }
+
+#' Run the RAMS Application
+#'
+#' @export
+RAMS <- function(...) {
+  run_app(...)
+}
+

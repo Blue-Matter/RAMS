@@ -21,3 +21,8 @@
 .selectize-control .selectize-input.disabled  {
   opacity: 1 !important;
 }
+
+
+aside#controlbar.control-sidebar-dark {
+  color: #222d32 !important;
+}

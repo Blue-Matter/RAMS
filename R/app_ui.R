@@ -18,15 +18,10 @@
 #   )
 
 # How many days should sessions last?
-cookie_expiry <- 7
+# cookie_expiry <- 7
 
-user_base <- tibble::tibble(
-  user = c("user1", "user2"),
-  password = c("pass1", "pass2"),
-  password_hash = sapply(c("pass1", "pass2"), sodium::password_store),
-  permissions = c("admin", "facilitator"),
-  name = c("User One", "User Two")
-)
+
+
 
 
 
@@ -48,8 +43,14 @@ app_ui <- function(request) {
                                           tags$li(
                                             class = "dropdown",
                                             style = "padding: 8px;",
+                                            uiOutput('user')
+                                          ),
+                                          tags$li(
+                                            class = "dropdown",
+                                            style = "padding: 8px;",
                                             shinyauthr::logoutUI("logout")
-                                          )),
+                                          )
+      ),
       controlbar=shinydashboardPlus::dashboardControlbar(id='controlbar',
                                                          width=350,
                                                          shinydashboardPlus::controlbarMenu(
@@ -70,6 +71,8 @@ app_ui <- function(request) {
 
         shinydashboard::tabItems(
           shinydashboard::tabItem(tabName = "home", mod_home_ui('home')),
+          shinydashboard::tabItem(tabName = "summary", mod_summary_ui('summary')),
+          shinydashboard::tabItem(tabName = "table", mod_table_ui('table')),
           shinydashboard::tabItem(tabName = "egg_alevin", mod_life_stage_tabset_ui('egg_alevin')),
           shinydashboard::tabItem(tabName = "fry_parr", mod_life_stage_tabset_ui('fry_parr')),
           shinydashboard::tabItem(tabName = "smolt", mod_life_stage_tabset_ui('smolt')),
@@ -117,6 +120,7 @@ golem_add_external_resources <- function() {
     # for example, you can add shinyalert::useShinyalert()
     shinyjs::useShinyjs(),
     waiter::use_waitress()
+
 
 
   )

@@ -32,6 +32,14 @@ CU_Info <- list(CK_CU_Info,
                 CK_CU_Info)
 
 
+create_ID <- function() {
+  pool <- c(letters, LETTERS, 0:9)
+
+  paste(paste0(sample(pool, 5, replace = TRUE), collapse = ""),
+        format(Sys.time(), "%Y%m%d%H%M%S"), sep='_')
+
+}
+
 order_CU_Sites <- function(cu_info) {
 
   cu_info_df <- data.frame(Code=cu_info$FULL_CU_IN, Name=cu_info$CU_NAME) %>%
@@ -72,6 +80,8 @@ create_btns <- function(x) {
                        '<div class = "btn-group">
                            <button class="btn btn-default action-button btn-primary action_button" id="load_',
                            .x, '" type="button" onclick=get_id(this.id)><i class="fas fa-eye"></i></button>
+                           <button class="btn btn-default action-button btn-info action_button shiny-download-link" id="download_',
+                          .x, '" type="button" onclick=get_id(this.id)><i class="fas fa-download"></i></button>
                        </div>'
                      ))
 
@@ -88,27 +98,119 @@ create_btns <- function(x) {
 }
 
 
-df <- read.csv('METADATA.csv') %>%
-  dplyr::select(
-    -idUSERS,
-    -Date_Created,
-    -Date_Modified,
-    -RL)
+### -------- READ IN CSVs (database proxy) -------- ####
 
-colnames(df)[2:5] <- c(
-  'Unit of Assessment',
-  'Year',
-  'Conservation Unit(s)',
-  'Watershed or Population')
+load_meta_data <- function() {
 
-# add users
-df$Facilitator <- c('A. Person', 'B. Person')
+  rel_pol <- REL_POL |> dplyr::group_by(RAMS_ID) |>
+    dplyr::mutate(rel_pol=paste(Rel_Pol, collapse=', ')) |>
+    dplyr::distinct(RAMS_ID, rel_pol)
 
+  cus <- CUs |> dplyr::group_by(RAMS_ID) |>
+    dplyr::mutate(cus=paste(CU, collapse=', ')) |>
+    dplyr::distinct(RAMS_ID, cus)
 
-make_meta_data_table <- function(df) {
-  buttons <- create_btns(1:nrow(df))
-  dplyr::bind_cols(df, tibble::tibble("Buttons" = buttons))
+  wss <- WSs |> dplyr::group_by(RAMS_ID) |>
+    dplyr::mutate(wss=paste(WS, collapse=', ')) |>
+    dplyr::distinct(RAMS_ID, wss)
+
+  df <- METADATA |>
+    dplyr::left_join(rel_pol, by='RAMS_ID') |>
+    dplyr::left_join(cus, by='RAMS_ID') |>
+    dplyr::left_join(wss, by='RAMS_ID')
+
+  # add user
+  users <- USERS |> dplyr::mutate(Name=paste(LAST_NAME, FIRST_NAME, sep=', ')) |>
+    dplyr::select(idUSER, Name)
+  df <- dplyr::left_join(df, users, by='idUSER')
+
+  df <- df |>
+    dplyr::mutate(Date=lubridate::ymd(Date),
+                  Date_Mod=lubridate::ymd(Date_Mod))
+  df
+
 }
+
+load_RAMS_scores <- function(rams_id) {
+  df <- LF_DB |> dplyr::filter(RAMS_ID==rams_id)
+
+  # calculate scores
+  df |> dplyr::group_by(LF_ID) |>
+    mutate(Exposure_Score=calc_likelihood(Spatial_Exposure, Temporal_Exposure),
+           Risk_Score=calc_likelihood(Exposure_Score, Impact),
+           Future_Score=calc_future_score(Risk_Score, Future_Trend))
+}
+
+load_Correlated <- function(rams_id) {
+  CORRELATED_LFs  |> dplyr::filter(RAMS_ID==rams_id)
+}
+
+make_meta_data_table <- function() {
+
+  metadata <- load_meta_data() |>
+    dplyr::select(-RAMS_ID, -idUSER, -wss, -cus, -Date_Mod) |>
+    dplyr::select(Date,
+                  Species,
+                  UOA,
+                  rel_pol,
+                  Name,
+                  Note
+                  )
+
+  colnames(metadata) <- c(
+                          'Date Created',
+                          'Species',
+                          'Unit of Assessment',
+                          'Relevant Legislation',
+                          'Creator',
+                          'Note')
+
+  buttons <- create_btns(1:nrow(metadata))
+  metadata <- dplyr::bind_cols(metadata, tibble::tibble("Buttons" = buttons))
+
+  cnames <- colnames(metadata)
+
+
+  metadata$Species <- factor(metadata$Species)
+  metadata$`Relevant Legislation` <- factor(metadata$`Relevant Legislation`)
+
+  metadata <- metadata %>% dplyr::arrange(dplyr::desc(`Date Created`))
+
+  DT::datatable(metadata,
+                selection='none',
+                escape=FALSE,
+                colnames = c(cnames[1:(ncol(metadata)-1)], ''),
+                # filter = list(position = 'top', clear = FALSE),
+                options = list(
+                  orderClasses =TRUE,
+                  pageLength=25,
+                  orderable=F,
+                  columnDefs = list(
+                    list(orderable = F,
+                         targets = 1:ncol(metadata)),
+                    list(searchable=FALSE,
+                         targets=c())
+                  )
+                )
+  )
+
+
+}
+
+
+
+
+
+
+## METADATA
+
+# metadata
+
+
+
+## RAMS Scores and Correlated Factors
+
+
 
 
 
@@ -125,66 +227,68 @@ mod_home_ui <- function(id){
   ns <- NS(id)
 
   tagList(
-    shinydashboard::box(width=12, status='primary',
-                        title=h3('Welcome to the Risk Assessment Method for Salmon App'),
+    shinydashboard::box(width=12, status='primary',solidHeader = FALSE,
+                        title=h3('Welcome to the Risk Assessment Method for Salmon (RAMS) App'),
+
                         shinydashboard::box(solidHeader = TRUE, status='primary', width=12,
                                             title='RAMS Database',
-                                            column(9,
-                                                   h4('Load an existing RAMS Process by clicking the',  icon('eye'), 'button',
-                                                      'on a row in the table below')
-                                            ),
-                                            column(3,
-                                                   uiOutput(ns('new_button')),
-                                                   style='float:right'),
-
-                                            br(),
-                                            br(),
+                                            h4('Load a RAMS process by clicking the',  icon('eye'), 'button in the RAMS Database or', actionLink(ns('openlogin'), 'Login'),
+                                               'to create a new RAMS process.'),
+                                            p(uiOutput(ns('new_button'))),
                                             DT::dataTableOutput(ns('meta_data_table'))
 
-                        )
+                        ),
+                        downloadButton(ns("downloadData"),label = "Fake", style = "visibility: hidden;")
     )
 
   )
 }
 
+
+
 #' home Server Functions
 #'
 #' @noRd
-mod_home_server <- function(id, objects, credentials){
+mod_home_server <- function(id, objects, credentials, home_session){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
-    output$new_button <- renderUI({
-      if (credentials()$user_auth) {
-        tagList(shinyWidgets::actionBttn(ns('create_new'), 'Create New RAMS',
-                                         style = "jelly",
-                                         color='primary',
-                                         size='sm'))
-      } else {
-        NULL
-      }
+    observeEvent(input$openlogin, {
+      shinydashboardPlus::updateControlbar("controlbar", session=home_session)
     })
 
-    output$meta_data_table <- DT::renderDataTable({
-      df <- make_meta_data_table(df)
-      cnames <- colnames(df)
-      DT::datatable(df,
-                    selection='none',
-                    escape=FALSE,
-                    colnames = c(cnames[1:(ncol(df)-1)], ''),
+    output$new_button <- renderUI({
+      if (credentials()$user_auth) {
+        tagList(
+         actionButton(ns('create_new'), 'Create a New RAMS', icon=icon('plus'))
+        )
 
-                    options = list(
-                      columnDefs = list(
-                        list(orderable = F,
-                             targets = c(ncol(df)))
-                      )
-                    )
-      )
+      } else {
+        tagList(br())
+      }
+      # tagList(
+      #   actionButton(ns('create_new'), 'Create a New RAMS', icon=icon('plus'))
+      # )
+    })
+
+    make_user <- function() {
+      # temporary function to make sure sodium package is installed
+      sodium::password_store('password')
+    }
+    output$meta_data_table <- DT::renderDataTable({
+      make_meta_data_table()
+
+
     })
 
     output$new_dialog <- renderUI({
       tagList(
         fluidPage(
+          fluidRow(
+            column(12,
+                   h3('NOTE: this feature is not complete. Nothing changes after pressing `Save`')
+                   )
+          ),
           fluidRow(
             column(3,
                    dateInput(ns('date'), 'Date',
@@ -301,8 +405,7 @@ mod_home_server <- function(id, objects, credentials){
     })
 
 
-    # TEMP ID
-    id_rams <- 1
+    id_rams <- create_ID()
     Date_UOA_Species_List <- reactiveValues(ID_RAMS=id_rams,
                                             Date=NULL,
                                             `Unit of Assessment`=NULL,
@@ -394,24 +497,30 @@ mod_home_server <- function(id, objects, credentials){
       if (check_metadata(Date_UOA_Species_List, Rel_Pol_List, CU_List, WS_List)) {
         shiny::removeModal()
 
-        # modal popup
-
-        # enter metadata
-
-        # create RAMS object
-
-        # save
-
-        # display sidebar and expand
         objects$loaded <- TRUE
+        metadata <- list(RAMS_ID=id_rams,
+                         Date=input$date,
+                         Species=selected_species(),
+                         UOA=input$uoa,
+                         idUSER=objects$info$idUSER,
+                         Date_Mod=input$date,
+                         Note=NULL)
 
-        # dashboardSidebar
+                         # rel_pol=input$rel_pol,
+                         # CUs=selected_CUs(),
+                         # WS=selected_WSs)
+        # Metadata <<- objects$metadata
+        # RAMS_scores <<- objects$RAMS_scores
 
+        # shinydashboard::updateTabItems(home_session, 'menu_sidebar', 'summary')
 
-        # if (btn_type == 'load') {
-        #  objects$selected_row <- selected_row
-        #  objects$loaded <- TRUE
-        # }
+        # objects$metadata <- metadata
+        # object$RAMS_scores <- create_new_RAMS(id_rams)
+
+        # update METADATA object
+        # create CUs and WSs object and add to masters
+        # push METADATA to DB
+        # push new RAMS scores object to DB
 
       }
 
@@ -447,8 +556,7 @@ mod_home_server <- function(id, objects, credentials){
 #     })
 
 
-
-
+    download_data <- reactiveValues()
 
     shiny::observeEvent(ns(input$current_id), {
 
@@ -463,19 +571,70 @@ mod_home_server <- function(id, objects, credentials){
         if (btn_type == 'load') {
           objects$selected_row <- selected_row
           objects$loaded <- TRUE
+          objects$metadata <- load_meta_data()[selected_row,]
+          objects$RAMS_scores <- load_RAMS_scores( objects$metadata$RAMS_ID)
+          objects$loaded_RAMS_scores <- load_RAMS_scores( objects$metadata$RAMS_ID)
+          objects$Correlated_LFs <- load_Correlated( objects$metadata$RAMS_ID)
+
+          Metadata <<- objects$metadata
+          RAMS_scores <<- objects$RAMS_scores
+
+          shinydashboard::updateTabItems(home_session, 'menu_sidebar', 'summary')
+
         }
+        if (btn_type == 'download') {
+          download_data$metadata <- load_meta_data()[selected_row,]
+          download_data$RAMS_scores <- load_RAMS_scores(download_data$metadata$RAMS_ID)
+          download_data$loaded_RAMS_scores <- load_RAMS_scores(download_data$metadata$RAMS_ID)
+          download_data$Correlated_LFs <- load_Correlated(download_data$metadata$RAMS_ID)
+          make_download_data()
+          download_file_name()
+          shinyjs::click("downloadData")
+        }
+
       }
-
-
     })
+
+    download_file_name <- reactive({
+      download_data$file <- paste0(paste(download_data$metadata$UOA,
+                   download_data$metadata$Date, sep=" "),
+             '.xlsx')
+    })
+
+    make_download_data <- reactive({
+      df_list <- list()
+
+      metadata_df <- dplyr::left_join(download_data$metadata, USERS, by='idUSER') %>%
+        dplyr::select(-RAMS_ID, -idUSER, -PASSWORD,
+                      -PERMISSIONS, -DATE_CREATED)
+
+      df_list$Metadata <- metadata_df
+
+      df_list$RAMS_scores <- download_data$RAMS_scores %>%
+        dplyr::select(-RAMS_ID)
+
+      df_list$Correlated_LFs <- download_data$Correlated_LFs %>%
+        dplyr::select(-RAMS_ID)
+      download_data$data <- df_list
+    })
+
+
+    output$downloadData <- downloadHandler(
+      filename = function() {
+        download_data$file
+      },
+      content = function(file) {
+        print(class(download_data$data))
+        OUT <<- download_data$data
+        # writexl::write_xlsx(OUT, 'temp')
+        # lapply(OUT, class)
+        writexl::write_xlsx(download_data$data, file)
+      })
+
+
 
   })
 
 
 }
 
-## To be copied in the UI
-# mod_home_ui("home_1")
-
-## To be copied in the server
-# mod_home_server("home_1")
