@@ -233,8 +233,6 @@ mod_limiting_factor_server <- function(id, objects) {
     risk_score <- reactive(calc_likelihood(exposure_score(), impact()))
 
     observeEvent(risk_score(), ignoreInit = TRUE, {
-      # print('Risk Score in Tabset')
-      # print(risk_score())
       objects$RAMS_scores <- update_RAMS_scores(objects$RAMS_scores, LF(),
                                                 'Risk_Score',
                                                 risk_score())
@@ -397,7 +395,6 @@ mod_limiting_factor_server <- function(id, objects) {
     }
 
     observeEvent(input$save_notes,ignoreInit = TRUE, {
-      print(input$data_gaps_notes)
       objects$RAMS_scores <- update_RAMS_scores(objects$RAMS_scores, LF(),
                                                 'Notes',
                                                 input$data_gaps_notes)
